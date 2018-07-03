@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <router-link to="/"> 홈 </router-link>
+    <router-link to="Board"> 게시판 </router-link>
+    <router-link to="Rental"> 대여장부 </router-link>
     <router-view/>
   </div>
 </template>
