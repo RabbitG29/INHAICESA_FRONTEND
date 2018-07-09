@@ -1,29 +1,34 @@
 <template>
-<div>
-    <button v-on:click="plus">1증가</button>
-    <br>
-    <button v-on:click="getData">정보 받아오기</button>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">작성자</th>
-                <th scope="col">작성일시</th>
-                <th scope="col">내용</th>
-                <th scope="col">파일경로</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(item, index) in list" :key="index">
-                <th scope="row">{{item.id}}</th>
-                <th>{{item.writer}}</th>
-                <th>{{item.writertime}}</th>
-                <th>{{item.content}}</th>
-                <th>{{item.filepath}}</th>
-            </tr>
-        </tbody>
+<div class="board-box">
+  <button type="button" class="btn btn-outline-secondary"
+  style="float:right" @click="createLog()">등록</button>
 
+    <!-- print meeting log list -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col"> </th>
+          <th scope="col">작성자</th>
+          <th scope="col">제목</th>
+          <th scope="col">작성일시</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, index) in list" :key="index">
+          <th scope="row">{{index+1}}</th>
+          <th>{{item.writer}}</th>
+          <th @click="readBoard(item)">{{item.title}}</th>
+          <th>{{item.writetime}}</th>
+        </tr>
+      </tbody>
     </table>
+
+    <!--하단 번호버튼들-->
+    <div class="btn-toolbar " role="toolbar" aria-label="Toolbar with button groups">
+      <div class="btn-group mr-2 btn-group-sm  mx-auto" role="group" aria-label="First group">
+        <button type="button" class="btn btn-secondary" v-for="index in counter">{{index}}</button>
+      </div>
+    </div>
 
 </div>
 </template>
@@ -33,19 +38,31 @@ export default {
     data(){
         return {
             msg: '게시판',
-            counter: 0,
+            counter: 1,     //<!-- 하단 페이지버튼을 위한 변수-->
             list: []
         }
     },
     mounted: function(){
-        this.msg = '게시판난나나나난나ㅏㄴ'
+        this.msg = ''
+        this.getData()
     },
     methods: {
+        readBoard: function(item){
+          this.$router.push({
+            name: 'readBoard',
+            query: {
+              title: item.title,
+              writer: item.writer,
+              content: item.content,
+              id: item.id
+            }
+          })
+        },
         plus : function(){
             this.counter = this.counter +1
         },
         getData: function(){
-            this.$http.get('http://165.246.34.25:1665/resources/Mlog')
+            this.$http.get('http://165.246.34.25:1665/resources/mlog')
             .then(result=>{
                 console.log(result)
                 console.log(result.data.status)
@@ -54,9 +71,19 @@ export default {
             .catch(error=>{
                 console.log('서버에러')
             })
+        },
+        createLog: function(){
+          this.$router.push({
+            name:'createLog'
+          })
         }
     }
 }
 </script>
 <style>
+.board-box{
+  margin-left: 150px;
+  margin-right: 150px;
+  margin-top: 80px;
+}
 </style>
