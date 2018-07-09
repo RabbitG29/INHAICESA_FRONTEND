@@ -38,15 +38,16 @@ export default {
         }
     },
     mounted: function(){
-        this.msg = '게시ㅏㅍㄴ아ㄴㅇ럼ㄴ라ㅓ너ㅏㅣㅇㄹ'
+        this.msg = '게시판난나나나난나ㅏㄴ'
     },
     methods: {
         plus : function(){
-            this.counter = this.counter +1 
+            this.counter = this.counter +1
         },
         getData: function(){
             this.$http.get('http://165.246.34.25:1665/resources/Mlog')
             .then(result=>{
+                console.log(result)
                 console.log(result.data.status)
                 this.list = JSON.parse(result.data.result)
             })
