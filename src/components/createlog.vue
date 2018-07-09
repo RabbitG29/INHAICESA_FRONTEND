@@ -33,16 +33,6 @@ export default {
         this.msg = ' '
     },
     methods: {
-        readBoard: function(item){
-          this.$router.push({
-            name: 'readBoard',
-            query: {
-              title: item.title,
-              writer: item.writer,
-              content: item.content
-            }
-          })
-        },
         fileChanges: function(e){
           console.log(e)
           var file = e.target.files[0]
@@ -56,10 +46,9 @@ export default {
 
           var json = {
             writer: '최유진',
-            writertime: 20180709,
             content: this.content,
             writerID: '12161806',
-            title: this.title,
+            title: this.title
           }
           var formData = new FormData()
           formData.append('information', JSON.stringify(json))
@@ -67,12 +56,18 @@ export default {
 
           this.$http.post(url, formData)
           .then(result=>{
-            alert('성공!')
             console.log('success!')
+            alert('success')
+            this.$router.push({
+              name: 'Board'
+            })
           })
           .catch(error=>{
               console.log('서버에러')
-          })
+              this.$router.push({
+                name: 'Board'
+              })
+            })
         },
         goBack: function(){
           this.$router.push({

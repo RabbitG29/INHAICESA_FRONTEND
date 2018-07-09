@@ -17,7 +17,7 @@
         <tr v-for="(item, index) in list" :key="index">
           <th scope="row">{{index+1}}</th>
           <th>{{item.writer}}</th>
-          <th @click="readBoard(item)">{{item.title}}</th>
+          <th @click="readBoard(item)" style="cursor: pointer">{{item.title}}</th>
           <th>{{item.writetime}}</th>
         </tr>
       </tbody>
@@ -54,6 +54,7 @@ export default {
               title: item.title,
               writer: item.writer,
               content: item.content,
+              writerID: item.writerID,
               id: item.id
             }
           })

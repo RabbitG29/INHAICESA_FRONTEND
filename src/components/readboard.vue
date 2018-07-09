@@ -8,8 +8,8 @@
           <div class="col-sm-1"></div>
           <div class="col-sm-1">{{writer}}</div>
           <div class="col-sm-2">
-            <button type="button" class="btn btn-outline-secondary btn-sm" @click="editLog()">수정</button>
-            <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="deleteLog()">삭제</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="editLog">수정</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="deleteLog">삭제</button>
           </div>
         </div>
       </div>
@@ -70,10 +70,11 @@ export default {
       })
     },
     deleteLog: function(){
-      this.$http.delete('http://165.246.34.25:1665/resources/mlog?id='+this.id)
+      this.$http.delete('http://165.246.34.25:1665/resources/mlog/'+this.id)
       .then(result=>{
         if(result.data.status == 'success'){
-          alert('삭제 성공')
+          console.log('삭제성공')
+          alert('delete success')
           this.$router.push({
             name: 'Board'
           })
