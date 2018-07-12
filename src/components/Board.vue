@@ -26,7 +26,7 @@
     <!--하단 번호버튼들-->
     <div class="btn-toolbar " role="toolbar" aria-label="Toolbar with button groups">
       <div class="btn-group mr-2 btn-group-sm  mx-auto" role="group" aria-label="First group">
-        <button type="button" class="btn btn-secondary" v-for="index in counter">{{index}}</button>
+
       </div>
     </div>
 

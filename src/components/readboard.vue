@@ -16,6 +16,9 @@
       <div class="card-body">
     <!--    <h5 class="card-title">Special title treatment</h5> -->
         <p class="card-text">{{content}}</p>
+        <div>
+          <a :href="path">첨부파일 다운로드</a>
+        </div>
         <a href="#" class="btn btn-primary" style="float:right" @click="goBack">Go back</a>
       </div>
     </div>
@@ -53,15 +56,19 @@ export default {
       title : '',
       writer: '',
       context: '',
+      content: '',
       comment: '',
+      path: '',
       id: ''
     }
   },
   mounted: function(){
-    this.title = this.$route.query.title
-    this.writer = this.$route.query.writer
-    this.content = this.$route.query.content
+    this.title = this.$route.query.title || ''
+    this.writer = this.$route.query.writer || ''
+    this.content = this.$route.query.content || ''
     this.id = this.$route.query.id
+    this.path = this.$config.targetURL+'/resources/mlog/download/'+this.id
+    console.log('downloadable link'+ this.path)
   },
   methods: {
     goBack: function(){

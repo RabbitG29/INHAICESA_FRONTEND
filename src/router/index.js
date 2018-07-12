@@ -4,7 +4,9 @@ import HelloWorld from '@/components/HelloWorld'
 import Board from '@/components/Board'
 import Rental from '@/components/Rental'
 import readBoard from '@/components/readboard'
-import createLog from '@/components/createLog'
+import createLog from '@/components/createlog'
+import Login from '@/components/Login'
+import MyPage from '@/components/MyPage'
 Vue.use(Router)
 
 export default new Router({
@@ -18,7 +20,7 @@ export default new Router({
       path: '/board',
       name: 'Board',
       component: Board
-    },,
+    },
     {
       path: '/rental',
       name: 'Rental',
@@ -33,6 +35,16 @@ export default new Router({
       path:'/create',
       name:'createLog',
       component: createLog
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/mypage',
+      name: 'MyPage',
+      component: MyPage
     }
   ]
 })
