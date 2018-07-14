@@ -39,6 +39,7 @@
       }
     }"> 공지사항 </router-link>
     <router-link to="Rental"> 대여장부 </router-link>
+    <router-link to="Organ"> 학생회 조직도 </router-link>
     <router-link v-if="!isLogged" to="Login"> 로그인 </router-link>
     <span v-else>
     <a href="" @click="logOut"> 로그아웃 </a>
