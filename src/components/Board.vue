@@ -51,7 +51,7 @@ export default {
         this.msg = ''
         this.boardId = this.$route.query.boardId
         console.log('현재 게시판 번호 : '+this.boardId)
-        this.getData()        
+        this.getData()
       }
     },
     methods: {
@@ -85,7 +85,11 @@ export default {
         },
         createLog: function(){
           this.$router.push({
-            name:'createLog'
+            name:'createLog',
+            query: {
+              mode: 'create',
+              boardId: this.boardId
+            }
           })
         }
     }

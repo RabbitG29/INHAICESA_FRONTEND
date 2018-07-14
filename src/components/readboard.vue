@@ -66,10 +66,24 @@ export default {
     }
   },
   mounted: function(){
-    this.title = this.$route.query.title || ''
-    this.writer = this.$route.query.writer || ''
-    this.content = this.$route.query.content || ''
+//    this.title = this.$route.query.title || ''
+//    this.writer = this.$route.query.writer || ''
+//    this.content = this.$route.query.content || ''
     this.id = this.$route.query.id
+    console.log('마운티드!')
+    this.$http.get(this.$config.targetURL+'/resources/mlog/posts/'+this.id)
+    .then(r=>{
+    console.log('마운티드!2')
+      if(r.data.status == 'success'){
+        var result = JSON.parse(r.data.result)
+        this.title = result.title
+        this.writer = result.writer
+        this.content = result.content
+      }
+    })
+    .catch(e=>{
+
+    })
     this.path = this.$config.targetURL+'/resources/mlog/download/'+this.id
     console.log('downloadable link'+ this.path)
     this.getComment()
@@ -107,7 +121,14 @@ export default {
       })
     },
     editLog: function(){
-
+      console.log('버튼누름')
+      this.$router.push({
+        name:'createLog',
+        query: {
+          mode: 'edit',
+          postId: this.id
+        }
+      })
     },
     getComment: function(){
       this.$http.get('http://165.246.34.25:1665/resources/comment/'+this.id)

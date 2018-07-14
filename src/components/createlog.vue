@@ -1,6 +1,6 @@
 <template>
   <div class="board-box">
-    <button type="button" class="btn btn-outline-secondary" style="float:right" @click.prevent="createLog">등록</button>
+    <button type="button" class="btn btn-outline-secondary" style="float:right" @click.prevent="submitLog">{{mode=='create'?'등록':'수정'}}</button>
     <form>
       <div class="form-group">
         <input type="file" ref="file" id="files" class="form-control-file" @change="fileChanges">
@@ -18,19 +18,57 @@
 </template>
 <script>
 export default {
-    name : "Board",
+    name : "createLog",
     data(){
         return {
             msg: '게시판',
             counter: 1,
             title: '',
+            postId: '',
+            boardId: '',
             file1: '',
             content: '',
+            mode: '',
             list: []
+        }
+    },
+    computed: {
+        isLogged: function(){
+          return this.$store.getters.isLogged
+        },
+        getId(){
+          return this.$store.getters.getId
+        },
+        getName(){
+          return this.$store.getters.getName
+        },
+        getToken(){
+          return this.$store.getters.getToken
         }
     },
     mounted: function(){
         this.msg = ' '
+        if(this.$route.query.mode == 'create'){
+          this.mode = 'create';
+          this.boardId = this.$route.query.boardId
+        }
+        else if(this.$route.query.mode == 'edit'){
+          this.mode = 'edit'
+          this.postId = this.$route.query.postId
+          this.$http.get(this.$config.targetURL+'/resources/mlog/posts/'+this.postId)
+          .then(r=>{
+            if(r.data.status == 'success'){
+              var result = JSON.parse(r.data.result)
+              this.title = result.title
+              this.writer = result.writer
+              this.content = result.content
+              this.id = result.id
+            }
+          })
+          .catch(e=>{
+
+          })
+        }
     },
     methods: {
         fileChanges: function(e){
@@ -41,33 +79,63 @@ export default {
         plus : function(){
             this.counter = this.counter +1
         },
-        createLog: function(){
-          var url = 'http://165.246.34.25:1665/resources/mlog/';
+        submitLog: function(){
+          if(this.mode == 'create'){
+            var url = 'http://165.246.34.25:1665/resources/mlog/';
 
-          var json = {
-            writer: '최유진',
-            content: this.content,
-            writerID: '12161806',
-            title: this.title
-          }
-          var formData = new FormData()
-          formData.append('information', JSON.stringify(json))
-          formData.append('userfile', this.file1)
+            var json = {
+              writer: this.getName,
+              content: this.content,
+              writerID: this.getId,
+              title: this.title,
+              boardid: this.boardId
+            }
+            var formData = new FormData()
+            formData.append('information', JSON.stringify(json))
+            formData.append('userfile', this.file1)
 
-          this.$http.post(url, formData)
-          .then(result=>{
-            console.log('success!')
-            alert('success')
-            this.$router.push({
-              name: 'Board'
-            })
-          })
-          .catch(error=>{
-              console.log('서버에러')
+            this.$http.post(url, formData)
+            .then(result=>{
+              console.log('success!')
+              alert('success')
               this.$router.push({
                 name: 'Board'
               })
             })
+            .catch(error=>{
+                console.log('서버에러')
+                this.$router.push({
+                  name: 'Board'
+                })
+              })
+          }
+          else if(this.mode == 'edit'){
+            var url = 'http://165.246.34.25:1665/resources/mlog/';
+
+            var json = {
+              content: this.content,
+              title: this.title,
+              id: this.postId
+            }
+            var formData = new FormData()
+            formData.append('information', JSON.stringify(json))
+            formData.append('userfile', this.file1)
+
+            this.$http.put(url, formData)
+            .then(result=>{
+              console.log('success!')
+              alert('success')
+              this.$router.push({
+                name: 'Board'
+              })
+            })
+            .catch(error=>{
+                console.log('서버에러')
+                this.$router.push({
+                  name: 'Board'
+                })
+              })
+          }
         },
         goBack: function(){
           this.$router.push({
