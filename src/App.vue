@@ -1,7 +1,37 @@
 <template>
   <div id="app">
     <router-link to="/"> 홈 </router-link>
-    <router-link to="Board"> 게시판 </router-link>
+    <router-link :to="{
+      name: 'Board',
+      query: {
+        boardId: 1
+      }
+    }"> FAQ </router-link>
+    <router-link :to="{
+      name: 'Board',
+      query: {
+        boardId: 2
+      }
+    }"> 건의게시판 </router-link>
+    <router-link :to="{
+      name: 'Board',
+      query: {
+        boardId: 3
+      }
+    }"> 학칙 </router-link>
+    <router-link :to="{
+      name: 'Board',
+      query: {
+        boardId: 4
+      }
+    }"> 회의록 </router-link>
+    <router-link :to="{
+      name: 'Board',
+      query: {
+        boardId: 5
+      }
+    }"> 결산내역 </router-link>
+
     <router-link to="Rental"> 대여장부 </router-link>
     <router-link v-if="!isLogged" to="Login"> 로그인 </router-link>
     <span v-else>

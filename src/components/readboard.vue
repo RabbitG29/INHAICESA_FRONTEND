@@ -27,28 +27,30 @@
     <!--댓글작성-->
     <div class="form-group">
       <textarea v-model="comment" class="form-control" id="exampleFormControlTextarea1" placeholder="comment" rows="3"></textarea>
+      <button type="button" class="btn btn-outline-secondary btn-sm" style="float:right" @click.prevent="commentEroll">등록</button>
     </div>
     <br>
 
     <!--댓글 보이기-->
     <label>Comments</label>
     <ul class="list-group">
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        Cras justo odio
-        <span class="badge badge-primary badge-pill">장수빈</span>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        Dapibus ac facilisis in
-        <span class="badge badge-primary badge-pill">전수현</span>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        Morbi leo risus
-        <span class="badge badge-primary badge-pill">최진우</span>
+      <li class="list-group-item d-flex justify-content-between align-items-center"
+      v-for="(item, index) in list" :key="index">
+        <div style="width:1900px;">
+          <span class="badge badge-primary badge-pill">{{item.writerName}}</span>
+          {{item.content}}
+          <div style="float:right;">
+            <sub>{{item.edittime?item.edittime:item.createtime}}</sub>
+            <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="editComment(item.commentId)">수정</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="deleteComment(item.commentId)">삭제</button>
+          </div>
+        </div>
       </li>
     </ul>
   </div>
 </template>
 <script>
+var moment = require('moment')
 export default {
   name: 'readBoard',
   data(){
@@ -59,7 +61,8 @@ export default {
       content: '',
       comment: '',
       path: '',
-      id: ''
+      id: '',
+      list: []
     }
   },
   mounted: function(){
@@ -69,6 +72,18 @@ export default {
     this.id = this.$route.query.id
     this.path = this.$config.targetURL+'/resources/mlog/download/'+this.id
     console.log('downloadable link'+ this.path)
+    this.getComment()
+  },
+  computed: {
+    isLogged: function(){
+      return this.$store.getters.isLogged
+    },
+    getId(){
+      return this.$store.getters.getId
+    },
+    getToken(){
+      return this.$store.getters.getToken
+    }
   },
   methods: {
     goBack: function(){
@@ -93,7 +108,74 @@ export default {
     },
     editLog: function(){
 
-    }
+    },
+    getComment: function(){
+      this.$http.get('http://165.246.34.25:1665/resources/comment/'+this.id)
+      .then(result=>{
+          console.log(result)
+          console.log(result.data.status)
+
+
+          this.list = JSON.parse(result.data.result)
+      })
+      .catch(error=>{
+          console.log('서버에러')
+      })
+    },
+    commentEroll : function(){
+     var url = 'http://165.246.34.25:1665/resources/comment';
+
+     var json = {
+       postId: this.id,
+       content: this.comment,
+       writerID: this.getId
+     }
+     this.$http.post(url, json)
+     .then(result=>{
+       if(result.data.status == 'success'){
+         this.getComment()
+         this.$notice({
+           type: 'success',
+           text: '성공!'
+         })
+       }
+     })
+     .catch(error=>{
+         console.log('서버에러')
+       })
+    },
+    deleteComment : function(commentId){
+      this.$http.delete('http://165.246.34.25:1665/resources/comment/'+commentId)
+      .then(result=>{
+        if(result.data.status == 'success'){
+          console.log('삭제성공')
+          this.getComment()
+          alert('delete success')
+        }
+      })
+      .catch(error=>{
+        console.log('서버에러')
+      })
+    },
+    editComment : function(commentId){
+      var url = 'http://165.246.34.25:1665/resources/comment';
+      var json = {
+        commentId: commentId,
+        content: this.comment
+      }
+      this.$http.post(url, json)
+
+      .then(result=>{
+        if(result.data.status == 'success'){
+          console.log('수정성공')
+          this.getComment()
+          alert('edit success')
+        }
+      })
+      .catch(error=>{
+        console.log('서버에러')
+      })
+    },
   }
 }
 </script>

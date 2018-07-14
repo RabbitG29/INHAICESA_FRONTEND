@@ -39,12 +39,20 @@ export default {
         return {
             msg: '게시판',
             counter: 1,     //<!-- 하단 페이지버튼을 위한 변수-->
-            list: []
+            list: [],
+            boardId: ''
         }
     },
     mounted: function(){
+    },
+    watch: {
+      // this.$route
+      $route: function(to, from){
         this.msg = ''
-        this.getData()
+        this.boardId = this.$route.query.boardId
+        console.log('현재 게시판 번호 : '+this.boardId)
+        this.getData()        
+      }
     },
     methods: {
         readBoard: function(item){
@@ -63,7 +71,9 @@ export default {
             this.counter = this.counter +1
         },
         getData: function(){
-            this.$http.get('http://165.246.34.25:1665/resources/mlog')
+            var url = 'http://165.246.34.25:1665/resources/mlog/'+this.boardId
+            console.log(url)
+            this.$http.get(url)
             .then(result=>{
                 console.log(result)
                 console.log(result.data.status)
