@@ -8,6 +8,7 @@ import createLog from '@/components/createlog'
 import Login from '@/components/Login'
 import MyPage from '@/components/MyPage'
 import EmailAuth from '@/components/EmailAuth'
+import Organ from '@/components/Organ'
 Vue.use(Router)
 
 export default new Router({
@@ -51,6 +52,11 @@ export default new Router({
       path: '/emailauth',
       name: 'EmailAuth',
       component: EmailAuth
+    },
+    {
+      path: '/organ' ,
+      name: 'Organ',
+      component: Organ
     }
   ]
 })

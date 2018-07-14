@@ -44,6 +44,10 @@ export default {
         }
     },
     mounted: function(){
+      this.msg = ''
+      this.boardId = this.$route.query.boardId
+      console.log('현재 게시판 번호 : '+this.boardId)
+      this.getData()
     },
     watch: {
       // this.$route

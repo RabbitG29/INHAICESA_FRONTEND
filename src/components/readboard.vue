@@ -111,9 +111,7 @@ export default {
         if(result.data.status == 'success'){
           console.log('삭제성공')
           alert('delete success')
-          this.$router.push({
-            name: 'Board'
-          })
+          this.$router.go(-1)
         }
       })
       .catch(error=>{

@@ -98,9 +98,7 @@ export default {
             .then(result=>{
               console.log('success!')
               alert('success')
-              this.$router.push({
-                name: 'Board'
-              })
+              this.$router.go(-2)
             })
             .catch(error=>{
                 console.log('서버에러')
