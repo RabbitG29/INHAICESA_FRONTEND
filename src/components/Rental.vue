@@ -24,15 +24,39 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in results" :key="index">
-                    <th scope="col">{{item.num}}</th>
-                    <th scope="col">{{item.pro_name}}</th>
-                    <th scope="col">{{item.pro_num}}</th>
-                    <th scope="col">{{item.pro_possible}}</th>
-                    <th scope="col">
-                        <button class="btn btn-sm btn-secondary" :disabled="item.pro_possible!='O'">선택</button>
-                    </th>
-                </tr>
+                <template v-if="mode=='0'">
+                    <tr v-for="(item, index) in results" :key="index">
+                        <th scope="col">{{item.num}}</th>
+                        <th scope="col">{{item.pro_name}}</th>
+                        <th scope="col">{{item.pro_num}}</th>
+                        <th scope="col">{{item.pro_possible}}</th>
+                        <th scope="col">
+                            <button class="btn btn-sm btn-secondary" :disabled="item.pro_possible!='O'">선택</button>
+                        </th>
+                    </tr>
+                </template>
+                <template v-if="mode=='1'">
+                    <tr v-for="(item, index) in results" v-if="item.pro_possible=='O'" :key="index">
+                        <th scope="col">{{item.num}}</th>
+                        <th scope="col">{{item.pro_name}}</th>
+                        <th scope="col">{{item.pro_num}}</th>
+                        <th scope="col">{{item.pro_possible}}</th>
+                        <th scope="col">
+                            <button class="btn btn-sm btn-secondary" :disabled="item.pro_possible!='O'">선택</button>
+                        </th>
+                    </tr>
+                </template>
+                <template v-if="mode=='2'">
+                    <tr v-for="(item, index) in results" v-if="item.pro_possible=='X'" :key="index">
+                        <th scope="col">{{item.num}}</th>
+                        <th scope="col">{{item.pro_name}}</th>
+                        <th scope="col">{{item.pro_num}}</th>
+                        <th scope="col">{{item.pro_possible}}</th>
+                        <th scope="col">
+                            <button class="btn btn-sm btn-secondary" :disabled="item.pro_possible!='O'">선택</button>
+                        </th>
+                    </tr>
+                </template>
             </tbody>
         </table>
     </div>
