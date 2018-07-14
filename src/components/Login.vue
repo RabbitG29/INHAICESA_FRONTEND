@@ -30,6 +30,8 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       id: '',
+      password: '',
+      name: '',
       password: ''
     }
   },
@@ -39,22 +41,35 @@ export default {
     }
   },
   methods: {
-      logIn(token){
+      logIn(data){
+          console.log(data)
           this.$store.commit('logIn', {
               id: this.id,
-              token: token
+              token: data.token,
+              phone: data.phone||'',
+              name: data.name||''
           })
       },
       submit: function(){
-          this.$http.get(this.$config.targetURL+`/login?id=${this.id}&password=${this.password}`)
+          this.$http.get(this.$config.targetURL+`/auth/login?id=${this.id}&password=${this.password}`)
           .then((result)=>{
-              if(result.data.status == 'success'){
+              if(result.data.status == 'success'){ // 로그인 성공
                   console.log('success')
-                  this.logIn(result.data.token)
+                  if(result.data.token == 'email'){ // 이메일 인증이 아직 안된경우
+                      this.$router.push({
+                          name: 'EmailAuth',
+                          query: {
+                              id: this.id
+                          }
+                      })
+                  }
+                  else {
+                    this.logIn(result.data)
                     this.$notice({
                         type: 'success',
                         text: '무사히 로그인 성공!'
                     })
+                  }
               }
               else {
                 console.log('error')

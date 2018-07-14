@@ -7,6 +7,7 @@ import readBoard from '@/components/readboard'
 import createLog from '@/components/createlog'
 import Login from '@/components/Login'
 import MyPage from '@/components/MyPage'
+import EmailAuth from '@/components/EmailAuth'
 Vue.use(Router)
 
 export default new Router({
@@ -45,6 +46,11 @@ export default new Router({
       path: '/mypage',
       name: 'MyPage',
       component: MyPage
+    },
+    {
+      path: '/emailauth',
+      name: 'EmailAuth',
+      component: EmailAuth
     }
   ]
 })

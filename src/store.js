@@ -7,7 +7,9 @@ export const store = new Vuex.Store({
     state:{
         isLogged: false,
         id: '',
-        token: ''
+        token: '',
+        name: '',
+        phone: ''
     },
     getters:{
         isLogged: function(state){
@@ -18,6 +20,12 @@ export const store = new Vuex.Store({
         },
         getToken: function(state){
             return state.token
+        },
+        getName: function(state){
+            return state.name
+        },
+        getPhone: function(state){
+            return state.phone
         }
     },
     mutations: {
@@ -25,11 +33,15 @@ export const store = new Vuex.Store({
             state.isLogged = true
             state.id = payload.id
             state.token = payload.token
+            state.name = payload.name
+            state.phone = payload.phone
         },
         logOut: function(state, payload){
             state.isLogged = false
             state.id = ''
             state.token = ''
+            state.name = ''
+            state.phone = ''
         }
     }
 });
