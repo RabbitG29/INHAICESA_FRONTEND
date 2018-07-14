@@ -32,6 +32,12 @@
       }
     }"> 결산내역 </router-link>
 
+    <router-link :to="{
+      name: 'Board',
+      query: {
+        boardId: 6
+      }
+    }"> 공지사항 </router-link>
     <router-link to="Rental"> 대여장부 </router-link>
     <router-link v-if="!isLogged" to="Login"> 로그인 </router-link>
     <span v-else>
