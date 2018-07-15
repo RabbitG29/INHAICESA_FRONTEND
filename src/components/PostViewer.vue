@@ -17,9 +17,9 @@
     <!--    <h5 class="card-title">Special title treatment</h5> -->
         <p class="card-text">{{content}}</p>
         <div>
-          <a :href="path">첨부파일 다운로드</a>
+          <a v-if="filename" :href="path">첨부파일 다운로드 ({{filename}})</a>
         </div>
-        <a href="#" class="btn btn-primary" style="float:right" @click="goBack">Go back</a>
+        <a href="#" class="btn btn-primary" style="float:right" @click="goBack">뒤로가기</a>
       </div>
     </div>
     <br>
@@ -51,6 +51,7 @@
 </template>
 <script>
 var moment = require('moment')
+var path = require('path');
 export default {
   name: 'readBoard',
   data(){
@@ -62,6 +63,7 @@ export default {
       comment: '',
       path: '',
       id: '',
+      filename: '',
       list: []
     }
   },
@@ -79,6 +81,7 @@ export default {
         this.title = result.title
         this.writer = result.writer
         this.content = result.content
+        this.filename = path.basename(result.filepath||'')
       }
     })
     .catch(e=>{
@@ -101,9 +104,7 @@ export default {
   },
   methods: {
     goBack: function(){
-      this.$router.push({
-        name: "Board"
-      })
+      this.$router.go(-1)
     },
     deleteLog: function(){
       this.$http.delete('http://165.246.34.25:1665/resources/mlog/'+this.id)
@@ -121,7 +122,7 @@ export default {
     editLog: function(){
       console.log('버튼누름')
       this.$router.push({
-        name:'createLog',
+        name:'PostUploader',
         query: {
           mode: 'edit',
           postId: this.id
@@ -134,9 +135,16 @@ export default {
           console.log(result)
           console.log(result.data.status)
 
-
           this.list = JSON.parse(result.data.result)
-      })
+          this.list.forEach(v=>{
+            var ct = v.createtime
+            var et = v.edittime
+            console.log(ct+et)
+            v.createtime = this.$moment(ct).tz('Asia/Seoul').format('YYYY년 MM월 DD일 hh시 mm분')
+            if(et) v.edittime = this.$moment(et).tz('Asia/Seoul').format('YYYY년 MM월 DD일 hh시 mm분')
+          })    
+
+})
       .catch(error=>{
           console.log('서버에러')
       })

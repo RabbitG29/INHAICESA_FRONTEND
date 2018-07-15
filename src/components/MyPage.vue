@@ -1,11 +1,11 @@
 <template>  
-    <div>
+    <div class="container">
         <div>
-            <button class="btn btn-primary" @click.prevent="getMyInfo">나는 누구?</button>
+            <button class="btn btn-primary" @click.prevent="getMyInfo">테스트 버튼</button>
         </div>
         
         <div>
-            <button class="btn btn-primary" @click="editMyInfo">여긴 어디?</button>
+            <button class="btn btn-primary" @click="editMyInfo">내 정보 수정</button>
         </div>
         <div style="margin-left:300px;">
             <div v-if="mode=='edit'" class="col-sm-4">
@@ -13,6 +13,12 @@
                     <label>학번</label>
                     <input class="form-control" placeholder="학번" :value="id" disabled>
                 </div>
+                
+                <div class="row">
+                    <label>이름</label>
+                    <input class="form-control" placeholder="이름" :value="getName" disabled>
+                </div>
+
                 <div class="row">
                     <label>연락처(010-2222-3333)</label>
                     <input class="form-control" placeholder="연락처" v-model="phone">
@@ -42,6 +48,9 @@ export default {
         },
         getToken(){
             return this.$store.getters.getToken
+        },
+        getName(){
+            return this.$store.getters.getName
         }
     },
     mounted: function(){

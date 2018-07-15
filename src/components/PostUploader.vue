@@ -1,6 +1,7 @@
 <template>
-  <div class="board-box">
-    <button type="button" class="btn btn-outline-secondary" style="float:right" @click.prevent="submitLog">{{mode=='create'?'등록':'수정'}}</button>
+  <div class="board-box container">
+    <button type="button" class="btn btn-outline-primary" style="float:right" @click.prevent="submitLog">{{mode=='create'?'등록':'수정'}}</button>
+    <button type="button" class="btn btn-outline-secondary" style="float:right" @click="$router.go(-1)">뒤로가기</button>
     <form>
       <div class="form-group">
         <input type="file" ref="file" id="files" class="form-control-file" @change="fileChanges">
@@ -98,7 +99,7 @@ export default {
             .then(result=>{
               console.log('success!')
               alert('success')
-              this.$router.go(-2)
+              this.$router.go(-1)
             })
             .catch(error=>{
                 console.log('서버에러')
@@ -123,9 +124,7 @@ export default {
             .then(result=>{
               console.log('success!')
               alert('success')
-              this.$router.push({
-                name: 'Board'
-              })
+              this.$router.go(-1)
             })
             .catch(error=>{
                 console.log('서버에러')

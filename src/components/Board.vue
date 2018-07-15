@@ -1,5 +1,5 @@
 <template>
-<div class="board-box">
+<div class="board-box container">
   <button type="button" class="btn btn-outline-secondary"
   style="float:right" @click="createLog()">등록</button>
 
@@ -61,12 +61,8 @@ export default {
     methods: {
         readBoard: function(item){
           this.$router.push({
-            name: 'readBoard',
+            name: 'PostViewer',
             query: {
-              title: item.title,
-              writer: item.writer,
-              content: item.content,
-              writerID: item.writerID,
               id: item.id
             }
           })
@@ -82,6 +78,10 @@ export default {
                 console.log(result)
                 console.log(result.data.status)
                 this.list = JSON.parse(result.data.result)
+                this.list.forEach(v=>{
+                  var dateinfo = v.writetime
+                  v.writetime = this.$moment(dateinfo).tz('Asia/Seoul').format('YYYY년 MM월 DD일 HH시 mm분')
+                })
             })
             .catch(error=>{
                 console.log('서버에러')
@@ -89,7 +89,7 @@ export default {
         },
         createLog: function(){
           this.$router.push({
-            name:'createLog',
+            name:'PostUploader',
             query: {
               mode: 'create',
               boardId: this.boardId

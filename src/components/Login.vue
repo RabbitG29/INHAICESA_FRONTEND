@@ -1,6 +1,5 @@
 <template>
-  <div class="login row" style="margin-top:100px;">
-    <div class="col-sm-4"></div>
+  <div class="login container" style="margin:50px 0px;">
     <div v-show="!isLogged" class="col-sm-4">
         <form>
             <div class="form-group">

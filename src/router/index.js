@@ -3,8 +3,8 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Board from '@/components/Board'
 import Rental from '@/components/Rental'
-import readBoard from '@/components/readboard'
-import createLog from '@/components/createlog'
+import PostViewer from '@/components/PostViewer'
+import PostUploader from '@/components/PostUploader'
 import Login from '@/components/Login'
 import MyPage from '@/components/MyPage'
 import EmailAuth from '@/components/EmailAuth'
@@ -29,14 +29,14 @@ export default new Router({
       component: Rental
     },
     {
-        path: '/read',
-        name: 'readBoard',
-        component: readBoard
+        path: '/postviewer',
+        name: 'PostViewer',
+        component: PostViewer
     },
     {
-      path:'/create',
-      name:'createLog',
-      component: createLog
+      path:'/postuploader',
+      name:'PostUploader',
+      component: PostUploader
     },
     {
       path: '/login',
