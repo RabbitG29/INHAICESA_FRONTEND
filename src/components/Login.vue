@@ -46,7 +46,8 @@ export default {
               id: this.id,
               token: data.token,
               phone: data.phone||'',
-              name: data.name||''
+              name: data.name||'',
+              authLevel: data.authLevel
           })
       },
       submit: function(){
@@ -63,6 +64,7 @@ export default {
                       })
                   }
                   else {
+                    console.log(result.data)
                     this.logIn(result.data)
                     this.$notice({
                         type: 'success',

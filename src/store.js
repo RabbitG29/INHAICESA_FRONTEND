@@ -9,7 +9,8 @@ export const store = new Vuex.Store({
         id: '',
         token: '',
         name: '',
-        phone: ''
+        phone: '',
+        authLevel: ''
     },
     getters:{
         isLogged: function(state){
@@ -26,6 +27,9 @@ export const store = new Vuex.Store({
         },
         getPhone: function(state){
             return state.phone
+        },
+        getAuthLevel: function(state){
+            return state.authLevel
         }
     },
     mutations: {
@@ -35,6 +39,7 @@ export const store = new Vuex.Store({
             state.token = payload.token
             state.name = payload.name
             state.phone = payload.phone
+            state.authLevel = payload.authLevel
         },
         logOut: function(state, payload){
             state.isLogged = false
@@ -42,6 +47,7 @@ export const store = new Vuex.Store({
             state.token = ''
             state.name = ''
             state.phone = ''
+            state.authLevel = ''
         }
     }
 });

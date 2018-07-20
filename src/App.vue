@@ -77,17 +77,23 @@ export default {
 </style>
 
 <style>
+
 #login-menu {
   float:right;
   margin-right: 10px;
   font-size: 12px;
+  display: flex;
+  z-index: 10;
+}
+#main-menu {
+  background: white;
 }
 #main-menu a {
   box-sizing: border-box;
   width: 110px;
-  margin: 5px;
+  padding: 5px;
   color: black;
-  z-index: 9999;
+  background: white;
 }
 .dde {
   position: absolute;
@@ -99,6 +105,7 @@ export default {
 
 
 .ddm:hover .dde a{
+  position: relative;
   display: block;
   z-index: 10;
 }
