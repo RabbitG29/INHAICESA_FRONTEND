@@ -8,8 +8,10 @@
           <div class="col-sm-1"></div>
           <div class="col-sm-1">{{writer}}</div>
           <div class="col-sm-2">
-            <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="editLog">수정</button>
-            <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="deleteLog">삭제</button>
+            <div v-show="isLogged && getId == writerID">
+              <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="editLog">수정</button>
+              <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="deleteLog">삭제</button>
+            </div>
           </div>
         </div>
       </div>
@@ -41,8 +43,10 @@
           {{item.content}}
           <div style="float:right;">
             <sub>{{item.edittime?item.edittime:item.createtime}}</sub>
-            <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="editComment(item.commentId)">수정</button>
-            <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="deleteComment(item.commentId)">삭제</button>
+            <div v-show="getId==item.writerID">
+              <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="editComment(item.commentId)">수정</button>
+              <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="deleteComment(item.commentId)">삭제</button>
+            </div>
           </div>
         </div>
       </li>
@@ -142,7 +146,7 @@ export default {
             console.log(ct+et)
             v.createtime = this.$moment(ct).tz('Asia/Seoul').format('YYYY년 MM월 DD일 hh시 mm분')
             if(et) v.edittime = this.$moment(et).tz('Asia/Seoul').format('YYYY년 MM월 DD일 hh시 mm분')
-          })    
+          })
 
 })
       .catch(error=>{
