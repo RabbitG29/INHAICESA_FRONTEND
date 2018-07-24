@@ -62,6 +62,7 @@ export default {
     return {
       title : '',
       writer: '',
+      writerID: '',
       context: '',
       content: '',
       comment: '',
@@ -82,8 +83,10 @@ export default {
     console.log('마운티드!2')
       if(r.data.status == 'success'){
         var result = JSON.parse(r.data.result)
+        console.log(result)
         this.title = result.title
         this.writer = result.writer
+        this.writerID = result.writerID
         this.content = result.content
         this.filename = path.basename(result.filepath||'')
       }
