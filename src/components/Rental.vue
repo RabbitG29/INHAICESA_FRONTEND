@@ -376,9 +376,6 @@ export default {
 #phone-tooltip {
     margin: 10px auto;
 }
-.modal-container {
-    padding: 20px;
-}
 .table-box {
     margin-left: 100px;
     margin-right: 100px;

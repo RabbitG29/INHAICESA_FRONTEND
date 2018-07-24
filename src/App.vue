@@ -67,6 +67,9 @@
                                         <li>
                                             <router-link :to="{ name: 'Rental'}"> 대여장부 </router-link>
                                         </li>
+                                        <li>
+                                            <router-link :to="{ name: 'TimeTable'}">시간표</router-link>
+                                        </li>
                                         <li><a href="#" title="Contact Us">관련 사이트</a>
                                             <ul>
                                                 <li><a href="http://www.inha.ac.kr" target="_blank"> 인하대학교 </a></li>
@@ -131,6 +134,10 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+}
+
+.modal-container {
+    padding: 20px;
 }
 </style>
 
