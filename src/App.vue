@@ -20,6 +20,7 @@
         <div class="ddm">
           <a>학과 소개</a>
           <div class="dde">
+            <router-link to="Curriculum">교육과정</router-link>
             <router-link to="Completion">이수체계도</router-link>
           </div>
         </div>
