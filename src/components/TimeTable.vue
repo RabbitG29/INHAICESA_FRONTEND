@@ -3,6 +3,7 @@
         <div v-if="mode=='index'">
             <h2>시간표 생성기</h2>
             <p>시간표 과목을 입력하면 가능한 시간표를 보여드립니다.</p>
+            <p>같은 이름의 과목을 여러개 선택해도 하나만 시간표에 추가됩니다.</p>
             <hr>
             <div class="modal-container">
                 <div>
@@ -22,23 +23,50 @@
                                     <th class="text-center">학년</th>
                                     <th class="text-center">학점</th>
                                     <th class="text-center">타입</th>
+                                    <th class="text-center">교수</th>
+                                    <th class="text-center">비고</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(item, index) in selectedData" :key="index">
+                                <tr v-for="(item, index2) in selectedData" :key="index2+item.sno">
                                     <td scope="row">{{item.subject}}</td>
                                     <td>{{item.grade}}</td>
                                     <td>{{item.credit}}</td>
-                                    <td>{{item.category}}</td>
+                                    <td>
+                                        <span v-if="item.category == '전공필수'" class="badge badge-primary">{{item.category}}</span>
+                                        <span v-if="item.category == '전공선택'" class="badge badge-success">{{item.category}}</span>
+                                        <span v-if="item.category == '교양필수'" class="badge badge-info">{{item.category}}</span>
+                                        <span v-if="item.category == '교양선택'" class="badge badge-secondary">{{item.category}}</span>
+                                    </td>
+
+                                    <td>
+                                        <select v-model="selectedData[index2].selectedPf" class="form-control form-control-sm">
+                                            <option :value="''">아무나</option>
+                                             <!--교수 이름 렌더링-->
+                                            <option v-for="(c) in item.pfs" :key="index2" :value="c">{{c}}</option>
+                                        </select>
+                                    </td>
+                                    <td>{{item.bigo}}
+                                    </td>
                                     <td>
                                         <div>
-                                            <button class="btn btn-sm btn-primary" @click="selectedData.splice(index,1)">제거</button>
+                                            <button class="btn btn-sm btn-primary" @click="selectedData.splice(index2,1)">제거</button>
                                         </div>
                                     </td>
+
                                 </tr>
                                 <tr v-if="selectedData.length == 0">
-                                    <td colspan="5">선택된 사이트가 없습니다.</td>
+                                    <td colspan="8">선택된 사이트가 없습니다.</td>
+                                </tr>
+                                <tr v-else>
+                                    <td></td>
+                                    <td>총 학점</td>
+                                    <td>{{sumCredit}}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -107,6 +135,10 @@
                                 <label>모두</label>
                             </div>
                             <div class="col-sm-2">
+                                <input type="radio" value="교양선택" v-model="category">
+                                <label>교양선택</label>
+                            </div>
+                            <div class="col-sm-2">
                                 <input type="radio" value="교양필수" v-model="category">
                                 <label>교양필수</label>
                             </div>
@@ -128,6 +160,7 @@
                                     <th class="text-center">학년</th>
                                     <th class="text-center">학점</th>
                                     <th class="text-center">타입</th>
+                                    <th class="text-center">비고</th>
                                     <th class="text-center"></th>
                                 </tr>
                             </thead>
@@ -137,10 +170,16 @@
                                     <td>{{item.grade}}</td>
 
                                     <td>{{item.credit}}</td>
-                                    <td>{{item.category}}</td>
+                                    <td>
+                                        <span v-if="item.category == '전공필수'" class="badge badge-primary">{{item.category}}</span>
+                                        <span v-if="item.category == '전공선택'" class="badge badge-success">{{item.category}}</span>
+                                        <span v-if="item.category == '교양필수'" class="badge badge-info">{{item.category}}</span>
+                                        <span v-if="item.category == '교양선택'" class="badge badge-secondary">{{item.category}}</span>
+                                    </td>
+                                    <td>{{item.bigo}}</td>
                                     <td>
                                         <div>
-                                            <button class="btn btn-sm btn-primary" @click="selectedData.push(item)">추가</button>
+                                            <button class="btn btn-sm btn-primary" @click="selectSubject(item)">추가</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -186,8 +225,10 @@
                         </div>
                         <div v-for="(item, index2) in row" :key="index2" class="col-sm-2">
                             <div v-if="item!='0'" class="class-cell">
-                                {{item.subject}}({{item.sno}})
+                                {{item.subject}}({{item.name_pf||''}})
                                 <div class="cell-tooltip">
+                                    학수번호:{{item.sno}}
+                                    <br>
                                     {{["월","화","수","목","금"][index2]}}요일 {{index+1}}교시
                                     <br>
                                     교수:{{item.name_pf}}
@@ -204,6 +245,7 @@
     </div>
 </template>
 <script>
+/* eslint disable */
 export default {
     name: 'timetable',
     data (){
@@ -221,6 +263,15 @@ export default {
         }
     },
     computed: {
+        // 선택된 과목들의 학점 총합
+        sumCredit: function(){
+            let sum = 0
+            this.selectedData.forEach(v=>{
+                sum+=Number(v.credit)
+            })
+            return sum
+        },
+        // 필터링을 거친 결과값을 리턴해준다.
         selectedSubject: function(){
             let arr = [];
             this.subData.forEach(v=>{
@@ -243,6 +294,21 @@ export default {
         this.getDatas()
     },
     methods: {
+        // [추가] 버튼을 눌렀을때
+        selectSubject: function(item){
+            var pfSet = new Set() // 교수 이름 리스트
+            
+            this.result.forEach(v=>{
+                if(v.subject == item.subject){ // 같은 과목이면
+                    pfSet.add(v.name_pf) // 교수 이름을 Set에 넣어준다.
+                }
+            })
+            item.pfs = [...pfSet]; // Set -> Array 형변환 [ES6 문법]
+
+            item.selectedPf = '' // 선택된 교수 
+            this.selectedData.push(item)
+
+        },
         setTablePos: function(num){
 //            num = 0
             console.log('setTablePos'+ num)
@@ -282,7 +348,7 @@ export default {
                 console.log(r)
                 if(r.data.status == 'success'){
                     this.result = r.data.data
-                    console.log(this.reseult)
+                    console.log(this.result)
                 }
             })
             .catch(e=>{
@@ -290,9 +356,12 @@ export default {
             })
         },
         getTimeTable: function(){
-            var url = this.$config.targetURL+'/info/timetable/algorithm?subjects='+JSON.stringify(this.selectedData.map(x=>x.subject))
-            
+            console.log(JSON.stringify(this.selectedData.map(x=>x.subject)))
+            console.log(JSON.stringify(this.selectedData.map(x=>x.selectedPf)))
+            var url = this.$config.targetURL+'/info/timetable/algorithm?subjects='+JSON.stringify(this.selectedData.map(x=>x.subject))+'&selectedPf='+JSON.stringify(this.selectedData.map(x=>x.selectedPf))
+            console.log('hi get')
             console.log(url)
+
             this.$http.get(url)
             .then(r=>{
                 if(r.data.status == 'success'){

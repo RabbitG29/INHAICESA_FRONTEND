@@ -273,6 +273,8 @@ export default {
     padding: 15px 25px;
     font-size: 14px;
     color: #474747;
+    position: relative;
+    z-index: 999;
     text-decoration: none;
     font-weight: 500;
     text-transform: uppercase;
@@ -611,7 +613,7 @@ export default {
 
 .header {
     background-color: #fff;
-    z-index: 9999;
+    z-index: 99;
     position: relative;
     padding-top: 20px;
     padding-bottom: 20px;
