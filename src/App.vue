@@ -59,12 +59,7 @@
                                                 <li>
                                                     <router-link :to="{ name: 'Board', query: { boardId: 2 } }"> 건의게시판 </router-link>
                                                 </li>
-                                                <li>
-                                                    <router-link :to="{ name: 'Board', query: { boardId: 4 } }"> 회의록 </router-link>
-                                                </li>
-                                                <li>
-                                                    <router-link :to="{ name: 'Board', query: { boardId: 5 } }"> 결산내역 </router-link>
-                                                </li>
+
                                             </ul>
                                         </li>
                                         <li class="has-sub"><a href="#">정보마당</a>
@@ -74,6 +69,12 @@
                                             </li>
                                             <li>
                                                 <router-link :to="{ name: 'TimeTable'}">시간표</router-link>
+                                            </li>
+                                            <li>
+                                                <router-link :to="{ name: 'Board', query: { boardId: 4 } }"> 회의록 </router-link>
+                                            </li>
+                                            <li>
+                                                <router-link :to="{ name: 'Board', query: { boardId: 5 } }"> 결산내역 </router-link>
                                             </li>
                                           </ul>
                                         </li>
