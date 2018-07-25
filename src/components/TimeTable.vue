@@ -25,6 +25,14 @@
                                     <th class="text-center">타입</th>
                                     <th class="text-center">교수</th>
                                     <th class="text-center">비고</th>
+                                    <th class="text-center">
+                                        <div id="isEs">
+                                            필수
+                                            <span id="isEs-tooltip">
+                                                꼭 듣고 싶으면 체크하고 아니면 말어
+                                            </span>
+                                        </div>
+                                        </th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -44,8 +52,13 @@
                                         <select v-model="selectedData[index2].selectedPf" class="form-control form-control-sm">
                                             <option :value="''">아무나</option>
                                              <!--교수 이름 렌더링-->
-                                            <option v-for="(c) in item.pfs" :key="index2" :value="c">{{c}}</option>
+                                            <option v-for="(c, index) in item.pfs" :key="index2*1000+index" :value="c">{{c}}</option>
                                         </select>
+                                    </td>
+                                    <td>    
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" v-model="selectedData[index2].isEssential">
+                                        </div>
                                     </td>
                                     <td>{{item.bigo}}
                                     </td>
@@ -151,6 +164,17 @@
                                 <label>전공선택</label>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-6">
+                                <input class="form-control" @input="searchFilter" placeholder="검색" v-model="lazyFilter">
+                            </div>
+                            <div class="col-sm-4">
+                                <button class="btn btn-primary" @click="textFilter == ''">초기화</button>
+                            </div>
+                            
+
+                        </div>
                     </div>
                     <div class="form-group">
                         <table class="table">
@@ -254,6 +278,8 @@ export default {
             result: [], // 학년 별 과목 
             subject: '',
             credit: '',
+            textFilter: '', 
+            lazyFilter: '',
             mode: 'index',
             category: '',
             selectedData: [],
@@ -284,6 +310,11 @@ export default {
                 if(v.credit != (this.credit || v.credit)){
                     return
                 }
+                if(this.textFilter){
+                    if(v.subject.trim().indexOf(this.textFilter) == -1 && v.subject.trim().indexOf(this.lazyFilter) == -1){
+                        return;
+                    }
+                }
                 arr.push(v)
             })
             return arr
@@ -294,6 +325,9 @@ export default {
         this.getDatas()
     },
     methods: {
+        searchFilter: function(e){
+            this.textFilter = e.target.value
+        },
         // [추가] 버튼을 눌렀을때
         selectSubject: function(item){
             var pfSet = new Set() // 교수 이름 리스트
@@ -306,6 +340,7 @@ export default {
             item.pfs = [...pfSet]; // Set -> Array 형변환 [ES6 문법]
 
             item.selectedPf = '' // 선택된 교수 
+            item.isEssential = true
             this.selectedData.push(item)
 
         },
@@ -358,7 +393,7 @@ export default {
         getTimeTable: function(){
             console.log(JSON.stringify(this.selectedData.map(x=>x.subject)))
             console.log(JSON.stringify(this.selectedData.map(x=>x.selectedPf)))
-            var url = this.$config.targetURL+'/info/timetable/algorithm?subjects='+JSON.stringify(this.selectedData.map(x=>x.subject))+'&selectedPf='+JSON.stringify(this.selectedData.map(x=>x.selectedPf))
+            var url = this.$config.targetURL+'/info/timetable/algorithm?subjects='+JSON.stringify(this.selectedData.map(x=>x.subject))+'&selectedPf='+JSON.stringify(this.selectedData.map(x=>x.selectedPf))+'&isEssential='+JSON.stringify(this.selectedData.map(x=>x.isEssential))
             console.log('hi get')
             console.log(url)
 
@@ -397,6 +432,21 @@ export default {
     display: none;
 }
 .class-cell:hover .cell-tooltip {
+    display: block;
+}
+#isEs {
+    position: relative;
+}
+#isEs-tooltip {
+    position: absolute;
+    padding: 5px;
+    background-color: black;
+    color: white;
+    z-index: 10;
+    font-size: 12px;
+    display: none;
+}
+#isEs:hover #isEs-tooltip {
     display: block;
 }
 </style>
