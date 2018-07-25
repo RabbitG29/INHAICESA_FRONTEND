@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                             <div id="navigation">
-                                <h5>생생정보통신</h5>
+                                <router-link to="/">생생정보통신</router-link>
                             </div>
                         </div>
                         <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
@@ -25,23 +25,26 @@
                                         <li class="active">
                                             <router-link to="/"> 홈 </router-link>
                                         </li>
-                                        <li class="has-sub"><a>학과 소개</a>
+                                        <li class="has-sub"><a href="#">학생회 소개</a>
+                                            <ul>
+                                              <li>
+                                                  <router-link to="SaIntro"> 학생회 소개 </router-link>
+                                              </li>
+                                                <li>
+                                                    <router-link :to="{ name: 'Organ'}"> 학생회 조직도 </router-link>
+                                                </li>
+                                                <li>
+                                                    <router-link :to="{ name: 'PostViewer', query: { id: 72 } }"> 학칙 </router-link>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="has-sub"><a href="#">학과 소개</a>
                                             <ul>
                                                 <li>
                                                     <router-link to="Curriculum">교육과정</router-link>
                                                 </li>
                                                 <li>
                                                     <router-link to="Completion">이수체계도</router-link>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="has-sub"><a href="#">학생회 소개</a>
-                                            <ul>
-                                                <li>
-                                                    <router-link :to="{ name: 'Organ'}"> 학생회 조직도 </router-link>
-                                                </li>
-                                                <li>
-                                                    <router-link :to="{ name: 'PostViewer', query: { id: 72 } }"> 학칙 </router-link>
                                                 </li>
                                             </ul>
                                         </li>
@@ -64,11 +67,15 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li>
-                                            <router-link :to="{ name: 'Rental'}"> 대여장부 </router-link>
-                                        </li>
-                                        <li>
-                                            <router-link :to="{ name: 'TimeTable'}">시간표</router-link>
+                                        <li class="has-sub"><a href="#">정보마당</a>
+                                          <ul>
+                                            <li>
+                                                <router-link :to="{ name: 'Rental'}"> 대여장부 </router-link>
+                                            </li>
+                                            <li>
+                                                <router-link :to="{ name: 'TimeTable'}">시간표</router-link>
+                                            </li>
+                                          </ul>
                                         </li>
                                         <li><a href="#" title="Contact Us">관련 사이트</a>
                                             <ul>
@@ -80,7 +87,7 @@
                                                 <li><a href="http://certpia.inha.ac.kr" target="_blank"> 증명서발급 </a></li>
                                             </ul>
                                         </li>
-        
+
                                     </ul>
                                 </div>
                             </div>
@@ -91,15 +98,15 @@
         </div>
         <hr>
         <router-view/>
-    
+
         <div id="footer">
-            <small>이곳은 Footer 입니다.</small>
+            <small>(22212) 인천광역시 미추홀구 인하로 100 인하대학교 하이테크센터 고층부 지하1층</small>
             <br>
-            <small>ⓒcopyright 2018 developed by 권동현, 장수빈, 전수현, 최유진, 최진우</small>
+            <small>ⓒcopyright 2018 developed by 권동현, 장수빈, 전수현, 최유진, 최진우 All Rights Reserved</small>
             <br>
             <small>18대 정보통신공학과 학생회 생생정보통신</small>
             <br>
-            <small>추후에 사이트맵 / 즐겨찾기 / 사이트 정보 추가</small>
+            <small>Tel) 학생회장 권동현 : 010-2958-8370 학생부회장 박윤수 : 010-5004-4314</small>
         </div>
     </div>
 </template>
