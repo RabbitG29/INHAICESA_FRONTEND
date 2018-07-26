@@ -58,20 +58,6 @@ export default {
         this.getData()
       }
     },
-    computed: {
-        isLogged: function(){
-            return this.$store.getters.isLogged
-        },
-        getId(){
-            return this.$store.getters.getId
-        },
-        getToken(){
-            return this.$store.getters.getToken
-        },
-        getName(){
-            return this.$store.getters.getName
-        }
-    },
     methods: {
         readBoard: function(item){
           this.$router.push({
