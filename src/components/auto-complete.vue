@@ -37,7 +37,7 @@ export default {
             default: 4
         }
     },
-    methods: { 
+    methods: {
         up: function(){
             this.show = true
             console.log('up pushed')
@@ -108,7 +108,7 @@ export default {
             if(this.flist.length == 0){ // 해당하는 값이 없을떄
                 if(this.none == true){
                     this.flist.push({
-                        display: this.no_answer, 
+                        display: this.no_answer,
                         value: this.no_answer})
                 }
                 else if(this.none == false){
@@ -116,7 +116,7 @@ export default {
                 }
             }
             else {
-                this.ind = 0 
+                this.ind = 0
             }
         },
         clickItem: function(v){ // 아이템을 선택함!
@@ -127,7 +127,7 @@ export default {
                     this.$emit('input', v.value)
                     this.$emit('change', v.value)
                     this.checked = true;
-                } 
+                }
                 this.show = false
                 this.ind = -2
             }
@@ -136,7 +136,7 @@ export default {
             console.log('value changed detected:'+v)
             if(v){ // 초기값이 존재할때 리스트에서 찾아봐야지.
                 for(var i=0;i<this.list.length;i++){
-                    if(this.vlist){ 
+                    if(this.vlist){
                         if(this.vlist[i] == v){
                             this.clickItem({
                                 display:this.list[i],
@@ -154,7 +154,7 @@ export default {
                     this.text = '모두'
                     this.checked = true
                 }
-            }            
+            }
         }
     },
     created: function(){
@@ -197,12 +197,12 @@ li{
     font-size: 14px;
 }
 li:hover{
-    transition-duration: 0.2s; 
+    transition-duration: 0.2s;
     background: lightgrey;
 }
 .hovered{
     transition-duration: 0.2s;
-    background: lightgrey;    
+    background: lightgrey;
 }
 .input-header {
     position:relative;

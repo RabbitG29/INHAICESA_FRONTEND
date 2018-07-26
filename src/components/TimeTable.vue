@@ -311,7 +311,7 @@ export default {
                     return
                 }
                 if(this.textFilter){
-                    if(v.subject.trim().indexOf(this.textFilter) == -1 && v.subject.trim().indexOf(this.lazyFilter) == -1){
+                    if(v.subject.trim().indexOf(this.textFilter) == -1){
                         return;
                     }
                 }

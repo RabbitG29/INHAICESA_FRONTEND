@@ -13,6 +13,7 @@ import Completion from '@/components/Completion'
 import Curriculum from '@/components/Curriculum'
 import TimeTable from '@/components/TimeTable'
 import SaIntro from '@/components/SaIntro'
+import RentalLog from '@/components/RentalLog'
 Vue.use(Router)
 
 export default new Router({
@@ -81,6 +82,11 @@ export default new Router({
       path: '/saintro',
       name: 'SaIntro',
       component: SaIntro
+    },
+    {
+      path: '/rentallog',
+      name: 'RentalLog',
+      component: RentalLog
     }
   ]
 })

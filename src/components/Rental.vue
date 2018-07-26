@@ -7,7 +7,7 @@
             <div id="rental-request" class="row container">
                 <div class="form-group" style="width:500px;">
                     <div class="row form-group">
-                        <div class="col-sm-4"> 
+                        <div class="col-sm-4">
                             <label>선택한 항목</label>
                         </div>
                         <div class="col-sm-8">
@@ -70,6 +70,7 @@
                     </div>
                     <hr>
                     <div>
+
                         <button class="btn btn-primary" @click.prevent="submitData">대여 신청</button>
                         <button class="btn btn-secondary" @click="$modal.hide('rental-request-modal')">돌아가기</button>
                     </div>
@@ -92,6 +93,7 @@
     <div id="rental-viewer">
         <h3>대여장부</h3>
         <p>과자치비를 납부한 학생은 누구나 이용할 수 있습니다.</p>
+        <button v-if="isAdmin" class="btn btn-primary" @click="rentalLog()">관리 페이지로 이동</button>
         <div class="container" v-for="(item, i) in itemLists" :key="i">
             <div class="text-left rental-item-header">
                 <h4>{{itemNames[i]}}</h4>
@@ -284,7 +286,7 @@ export default {
                     }
                     console.log(JSON.stringify(this.itemLists))
                 }
-            })  
+            })
             .catch(e=>{
 
             })
@@ -345,16 +347,21 @@ export default {
                 if(r.data.status == 'success'){
                     var payload = r.data.payload
                     this.name = payload.name  || ''
-                    
+
                     this.phone = payload.phone || ''
                     this.initPhone = this.phone
                     this.paid = payload.paid
                 }
-            })  
+            })
             .catch(e=>{
 
             })
 
+        },
+        rentalLog: function(){
+            this.$router.push({
+              name: 'RentalLog'
+            })
         }
     },
     mounted: function(){
@@ -363,12 +370,12 @@ export default {
             if(r.data.status == 'success'){
                 this.payload = r.data.payload
             }
-        })  
+        })
         .catch(e=>{
 
         })
         this.getData()
-        
+
     }
 }
 </script>
