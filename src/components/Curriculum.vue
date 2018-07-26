@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     getData: function(){
-        var url = 'http://165.246.34.25:1665/info/iceinfo/'
+        var url = this.$config.targetURL+'/info/iceinfo/'
         console.log(url)
         this.$http.get(url)
         .then(result=>{
