@@ -41,6 +41,16 @@
                             <input class="form-control" v-model="phone">
                         </div>
                     </div>
+                    <div class="row form-group text-center container" id="phone-tooltip">
+                        <div v-if="initPhone == '' && id!=''"> <!-- -->
+                            <small>저장되어 있는 연락처가 없는데 새로 저장할까용?</small>
+                            <button class="btn btn-sm btn-primary" @click.prevent="editInfo" >새로 저장</button>
+                        </div>
+                        <div v-else-if="initPhone != phone">
+                            <small>기존에 저장되어있는 연락처와 다른데 수정할까요?</small>
+                            <button class="btn btn-sm btn-primary" @click.prevent="editInfo">수정</button>
+                        </div>
+                    </div>
                     <div class="row form-group">
                         <div class="col-sm-4">
                             <label>과자치비</label>
@@ -116,14 +126,16 @@
 </div>
 </template>
 <script>
+
 /*
+
 TODO:
 1. 연락처를 따로 저장안했던 사람이 대여를 하면
 그 사람 연락처를 Student DB에 저장해주기
-
 2. 연체료 계산하기
 
 */
+
 export default {
     name : "Rental",
     data(){
@@ -134,29 +146,16 @@ export default {
             paid: false,
             itemNames: [],
             itemLists: [],
+            isLoaded: false,
             id: '',
             name: '',
+            initPhone: '',
             phone: '',
             mode: 'view',
             item: ''
         }
     },
     computed: {
-        isLogged: function(){
-            return this.$store.getters.isLogged
-        },
-        getId(){
-            return this.$store.getters.getId
-        },
-        getAuthLevel(){
-            return this.$store.getters.getAuthLevel
-        },
-        getToken(){
-            return this.$store.getters.getToken
-        },
-        getName(){
-            return this.$store.getters.getName
-        },
         computedList(){
             var list = [];
             for(var item of this.results){
@@ -176,10 +175,31 @@ export default {
         }
     },
     methods: {
+        editInfo: function(){
+            let json = {
+                token: this.getToken,
+                phone: this.phone
+            }
+            this.$http.put(this.$config.targetURL+'/users/phone/'+this.id, json)
+            .then(r=>{
+                if(r.data.status == 'success'){
+                    this.initPhone = this.phone
+                    this.$notice({
+                        type: 'success',
+                        text: '성공적으로 수정되었습니다.'
+                    })
+                }
+            })
+            .catch(e=>{
+                this.$notice({
+                    type: 'error',
+                    text: '에러가 발생했습니다.'
+                })
+            })
+        },
         returnRequest: function(item){
             this.item = item
             this.$modal.show('rental-return')
-            
         },
         destroyItem: function(item){
             var json={
@@ -313,11 +333,9 @@ export default {
         },
         idChecker: function(e){
             var value = e.target.value
-
             if(value>10000000 && value < 100000000){
                 this.getInfo()
             }
-
         },
         getInfo: function(){
             this.name = this.phone = ''
@@ -326,8 +344,10 @@ export default {
             .then(r=>{
                 if(r.data.status == 'success'){
                     var payload = r.data.payload
-                    this.name = payload.name
-                    this.phone = payload.phone
+                    this.name = payload.name  || ''
+                    
+                    this.phone = payload.phone || ''
+                    this.initPhone = this.phone
                     this.paid = payload.paid
                 }
             })  
@@ -353,8 +373,8 @@ export default {
 }
 </script>
 <style>
-.modal-container {
-    padding: 20px;
+#phone-tooltip {
+    margin: 10px auto;
 }
 .table-box {
     margin-left: 100px;

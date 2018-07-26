@@ -8,10 +8,8 @@
           <div class="col-sm-1"></div>
           <div class="col-sm-1">{{writer}}</div>
           <div class="col-sm-2">
-            <div v-show="isLogged && getId == writerID">
-              <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="editLog">수정</button>
-              <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="deleteLog">삭제</button>
-            </div>
+            <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="editLog">수정</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="deleteLog">삭제</button>
           </div>
         </div>
       </div>
@@ -19,9 +17,9 @@
     <!--    <h5 class="card-title">Special title treatment</h5> -->
         <p class="card-text">{{content}}</p>
         <div>
-          <a v-if="filename" :href="path">첨부파일 다운로드 ({{filename}})</a>
+          <a :href="path">첨부파일 다운로드</a>
         </div>
-        <a href="#" class="btn btn-primary" style="float:right" @click="goBack">뒤로가기</a>
+        <a href="#" class="btn btn-primary" style="float:right" @click="goBack">Go back</a>
       </div>
     </div>
     <br>
@@ -43,10 +41,8 @@
           {{item.content}}
           <div style="float:right;">
             <sub>{{item.edittime?item.edittime:item.createtime}}</sub>
-            <div v-show="getId==item.writerID">
-              <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="editComment(item.commentId)">수정</button>
-              <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="deleteComment(item.commentId)">삭제</button>
-            </div>
+            <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="editComment(item.commentId)">수정</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" @click.prevent="deleteComment(item.commentId)">삭제</button>
           </div>
         </div>
       </li>
@@ -55,20 +51,17 @@
 </template>
 <script>
 var moment = require('moment')
-var path = require('path');
 export default {
   name: 'readBoard',
   data(){
     return {
       title : '',
       writer: '',
-      writerID: '',
       context: '',
       content: '',
       comment: '',
       path: '',
       id: '',
-      filename: '',
       list: []
     }
   },
@@ -83,12 +76,9 @@ export default {
     console.log('마운티드!2')
       if(r.data.status == 'success'){
         var result = JSON.parse(r.data.result)
-        console.log(result)
         this.title = result.title
         this.writer = result.writer
-        this.writerID = result.writerID
         this.content = result.content
-        this.filename = path.basename(result.filepath||'')
       }
     })
     .catch(e=>{
@@ -111,7 +101,9 @@ export default {
   },
   methods: {
     goBack: function(){
-      this.$router.go(-1)
+      this.$router.push({
+        name: "Board"
+      })
     },
     deleteLog: function(){
       this.$http.delete('http://165.246.34.25:1665/resources/mlog/'+this.id)
@@ -129,7 +121,7 @@ export default {
     editLog: function(){
       console.log('버튼누름')
       this.$router.push({
-        name:'PostUploader',
+        name:'createLog',
         query: {
           mode: 'edit',
           postId: this.id
@@ -142,16 +134,9 @@ export default {
           console.log(result)
           console.log(result.data.status)
 
-          this.list = JSON.parse(result.data.result)
-          this.list.forEach(v=>{
-            var ct = v.createtime
-            var et = v.edittime
-            console.log(ct+et)
-            v.createtime = this.$moment(ct).tz('Asia/Seoul').format('YYYY년 MM월 DD일 hh시 mm분')
-            if(et) v.edittime = this.$moment(et).tz('Asia/Seoul').format('YYYY년 MM월 DD일 hh시 mm분')
-          })
 
-})
+          this.list = JSON.parse(result.data.result)
+      })
       .catch(error=>{
           console.log('서버에러')
       })

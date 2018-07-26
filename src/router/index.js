@@ -9,6 +9,10 @@ import Login from '@/components/Login'
 import MyPage from '@/components/MyPage'
 import EmailAuth from '@/components/EmailAuth'
 import Organ from '@/components/Organ'
+import Completion from '@/components/Completion'
+import Curriculum from '@/components/Curriculum'
+import TimeTable from '@/components/TimeTable'
+import SaIntro from '@/components/SaIntro'
 Vue.use(Router)
 
 export default new Router({
@@ -57,6 +61,26 @@ export default new Router({
       path: '/organ' ,
       name: 'Organ',
       component: Organ
+    },
+    {
+      path: '/completion' ,
+      name: 'Completion',
+      component: Completion
+    },
+    {
+      path: '/curriculum' ,
+      name: 'Curriculum',
+      component: Curriculum
+    },
+    {
+      path: '/timetable',
+      name: 'TimeTable',
+      component: TimeTable
+    },
+    {
+      path: '/saintro',
+      name: 'SaIntro',
+      component: SaIntro
     }
   ]
 })

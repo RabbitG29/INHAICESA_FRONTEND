@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input class="form-control" :class="[checked?'is-valid':'is-invalid']" v-model="text" @input="onChange()" @keyup.esc="show=false" @keyup.up="up" @keyup.down="down" @keyup.enter="enter">
+        <input class="form-control" :class="[checked?'is-valid':'is-invalid']" v-model="text" @keydown.enter="enter" @input="onChange" @keyup.esc="show=false" @keyup.up="up" @keyup.down="down" :disabled="disabled">
         <div class="input-header" v-if="show">
             <ul class="form-control">
                 <li v-for="(item, index) in flist" :key="item.display" :class="[(ind||'') == index?'hovered':'']" @click="clickItem(item)">{{item.display||''}}</li>
@@ -20,7 +20,13 @@ export default {
             type: Array
         },
         value: {
-
+        },
+        disabled: {
+            default: false
+        },
+        all: { // '모두'가 존재하는가?
+            type: Boolean,
+            default: true
         },
         none: {
             type: Boolean,
@@ -59,7 +65,12 @@ export default {
                 this.clickItem(this.flist[this.ind])
             }
         },
-        onChange: function(){
+        onChange: function(e){
+            console.log(e)
+            this.text = e.target.value.trim();
+            var text = e.target.value.trim().substr(0,this.text.length)
+            var text2= e.target.value.trim().substr(0,this.text.length-1)
+            console.log(this.text+'//'+text)
             this.ind = -2
             this.show = true // 값이 변하면 프리뷰창을 띄움
             this.checked = false // 빨강!
@@ -67,19 +78,33 @@ export default {
                 this.show = false;
             }
             console.log('change detected') // 변화 감지
-
             this.flist = []
-            
-            this.list.forEach((v,i)=>{
+            for(const [i, v] of this.list.entries()){
                 if(this.flist.length >= this.maxItems) return;
-                if(v.indexOf(this.text.trim())!=-1){
+                if(v.indexOf(text)!=-1){
                     this.flist.push({
                         display: v,
                         value: this.vlist?this.vlist[i]:v
                     })
                 }
-            })
-
+            }
+            if(this.flist.length == 0){
+                for(const [i, v] of this.list.entries()){
+                    if(this.flist.length >= this.maxItems) return;
+                    if(v.indexOf(text2)!=-1){
+                        this.flist.push({
+                            display: v,
+                            value: this.vlist?this.vlist[i]:v
+                        })
+                    }
+                }
+            }
+            if("모두".indexOf(this.text!=-1) && this.flist.length < this.maxItems){
+                this.flist.push({
+                    display: '모두',
+                    value: ''
+                })
+            }
             if(this.flist.length == 0){ // 해당하는 값이 없을떄
                 if(this.none == true){
                     this.flist.push({
@@ -90,20 +115,24 @@ export default {
                     this.show = false
                 }
             }
+            else {
+                this.ind = 0 
+            }
         },
         clickItem: function(v){ // 아이템을 선택함!
             //console.log(v.display + v.value)
-            if(v.display != this.no_answer){
-                this.text = v.display;
-                this.$emit('input', v.value)
-                this.checked = true;
-            } 
-            this.show = false
-            this.ind = -2
-        }
-    },
-    watch: {
-        value: function (v){ // v-model binding
+            if(v){
+                if(v.display != this.no_answer){
+                    this.text = v.display;
+                    this.$emit('input', v.value)
+                    this.$emit('change', v.value)
+                    this.checked = true;
+                } 
+                this.show = false
+                this.ind = -2
+            }
+        },
+        setInitItem: function(v){
             console.log('value changed detected:'+v)
             if(v){ // 초기값이 존재할때 리스트에서 찾아봐야지.
                 for(var i=0;i<this.list.length;i++){
@@ -121,7 +150,20 @@ export default {
                 this.text = ''
                 this.checked = false
                 this.ind = -2
-            }
+                if(this.all){
+                    this.text = '모두'
+                    this.checked = true
+                }
+            }            
+        }
+    },
+    created: function(){
+        console.log('mounted: '+this.value)
+        this.setInitItem(this.value)
+    },
+    watch: {
+        value: function (v){ // v-model binding
+            this.setInitItem(v)
         }
     },
     data(){
@@ -155,7 +197,7 @@ li{
     font-size: 14px;
 }
 li:hover{
-    transition-duration: 0.2s;
+    transition-duration: 0.2s; 
     background: lightgrey;
 }
 .hovered{
@@ -166,4 +208,3 @@ li:hover{
     position:relative;
 }
 </style>
-
