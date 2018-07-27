@@ -71,7 +71,7 @@ export default {
             this.counter = this.counter +1
         },
         getData: function(){
-            var url = 'http://165.246.34.25:1666/resources/mlog/'+this.boardId
+            var url = this.$config.targetURL+'/resources/mlog/'+this.boardId
             console.log(url)
             this.$http.get(url)
             .then(result=>{
