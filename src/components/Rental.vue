@@ -56,7 +56,7 @@
                             <label>과자치비</label>
                         </div>
                         <div class="col-sm-8">
-                            <input class="form-control" :value="paid?'납부':'미납'" disabled>
+                            <input class="form-control" :value="paid=='1'?'납부':'미납'" disabled>
                         </div>
                     </div>
                     <hr>

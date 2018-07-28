@@ -81,7 +81,7 @@ export default {
         },
         submitLog: function(){
           if(this.mode == 'create'){
-            var url = 'http://165.246.34.25:1665/resources/mlog/';
+            var url = 'http://165.246.34.25:1666/resources/mlog/';
 
             var json = {
               writer: this.getName,
@@ -108,7 +108,7 @@ export default {
               })
           }
           else if(this.mode == 'edit'){
-            var url = 'http://165.246.34.25:1665/resources/mlog/';
+            var url = 'http://165.246.34.25:1666/resources/mlog/';
 
             var json = {
               content: this.content,

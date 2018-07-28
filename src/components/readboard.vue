@@ -106,7 +106,7 @@ export default {
       })
     },
     deleteLog: function(){
-      this.$http.delete('http://165.246.34.25:1665/resources/mlog/'+this.id)
+      this.$http.delete(this.$config.targetURL+'/resources/mlog/'+this.id)
       .then(result=>{
         if(result.data.status == 'success'){
           console.log('삭제성공')
@@ -129,7 +129,7 @@ export default {
       })
     },
     getComment: function(){
-      this.$http.get('http://165.246.34.25:1665/resources/comment/'+this.id)
+      this.$http.get(this.$config.targetURL+'/resources/comment/'+this.id)
       .then(result=>{
           console.log(result)
           console.log(result.data.status)
@@ -142,7 +142,7 @@ export default {
       })
     },
     commentEroll : function(){
-     var url = 'http://165.246.34.25:1665/resources/comment';
+     var url = this.$config.targetURL+'/resources/comment';
 
      var json = {
        postId: this.id,
@@ -164,7 +164,7 @@ export default {
        })
     },
     deleteComment : function(commentId){
-      this.$http.delete('http://165.246.34.25:1665/resources/comment/'+commentId)
+      this.$http.delete(this.$config.targetURL+'/resources/comment/'+commentId)
       .then(result=>{
         if(result.data.status == 'success'){
           console.log('삭제성공')
@@ -177,7 +177,7 @@ export default {
       })
     },
     editComment : function(commentId){
-      var url = 'http://165.246.34.25:1665/resources/comment';
+      var url = this.$config.targetURL+'/resources/comment';
       var json = {
         commentId: commentId,
         content: this.comment
