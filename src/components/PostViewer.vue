@@ -27,7 +27,7 @@
     <br>
 
     <!--댓글작성-->
-    <div class="form-group">
+    <div v-if="isLogged" class="form-group">
       <textarea v-model="comment" class="form-control" id="exampleFormControlTextarea1" placeholder="comment" rows="3"></textarea>
       <button type="button" class="btn btn-outline-secondary btn-sm" style="float:right" @click.prevent="commentEroll">등록</button>
     </div>
