@@ -34,7 +34,7 @@
                                                     <router-link :to="{ name: 'Organ'}"> 학생회 조직도 </router-link>
                                                 </li>
                                                 <li>
-                                                    <router-link :to="{ name: 'PostViewer', query: { id: 72 } }"> 학칙 </router-link>
+                                                    <router-link :to="{ name: 'Board', query: { boardId: 3 } }"> 학칙 </router-link>
                                                 </li>
                                             </ul>
                                         </li>

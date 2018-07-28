@@ -109,7 +109,10 @@ export default {
             this.$http.post(url, formData)
             .then(result=>{
               console.log('success!')
-              alert('success')
+              this.$notice({
+                type: 'success',
+                text: '글 등록이 성공적으로 완료되었습니다.'
+              })
               this.$router.go(-1)
             })
             .catch(error=>{
@@ -134,7 +137,10 @@ export default {
             this.$http.put(url, formData)
             .then(result=>{
               console.log('success!')
-              alert('success')
+              this.$notice({
+                type: 'success',
+                text: '글 수정이 성공적으로 완료되었습니다.'
+              })
               this.$router.go(-1)
             })
             .catch(error=>{

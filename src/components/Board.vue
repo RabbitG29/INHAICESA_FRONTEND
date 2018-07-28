@@ -1,25 +1,35 @@
 <template>
-<div class="board-box container">
-  <div v-show="isLogged">
-  <button type="button" class="btn btn-outline-secondary"
-  style="float:right" @click="createLog()">등록</button>
+<div class="board-box">
+  <h3>
+    {{['','FAQ','건의게시판','학칙','회의록','결산내역', '공지사항'][Number(boardId)]}}
+  </h3>
+  <div v-show="isLogged" class="row form-group">
+    <div class="col-sm-10"></div>
+    <div class="col-sm-2" >
+      <button type="button" class="btn btn-secondary"
+    @click="createLog()">글 등록</button>
+    </div>
   </div>
+
+  <div class="row">
+
+  <div class="col-sm-1"></div>
     <!-- print meeting log list -->
-    <table class="table table-striped">
+    <table class="table table-striped col-sm-10">
       <thead>
-        <tr>
-          <th scope="col"> </th>
-          <th scope="col">작성자</th>
-          <th scope="col">제목</th>
-          <th scope="col">작성일시</th>
+         <tr class="text-center">
+          <th class="text-center" scope="col">#</th>
+          <th class="text-center">작성자</th>
+          <th class="text-center">제목</th>
+          <th class="text-center">작성일시</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in list" :key="index">
-          <th scope="row">{{index+1}}</th>
-          <th>{{item.writer}}</th>
-          <th @click="readBoard(item)" style="cursor: pointer">{{item.title}}</th>
-          <th>{{item.writetime}}</th>
+        <tr v-for="(item, index) in list" @click="readBoard(item)" :key="index">
+          <td scope="col">{{index+1}}</td>
+          <td>{{item.writer}}</td>
+          <td style="cursor: pointer">{{item.title}}</td>
+          <td>{{item.writetime}}</td>
         </tr>
       </tbody>
     </table>
@@ -30,7 +40,7 @@
 
       </div>
     </div>
-
+  </div>
 </div>
 </template>
 <script>
@@ -81,7 +91,7 @@ export default {
                 this.list = JSON.parse(result.data.result)
                 this.list.forEach(v=>{
                   var dateinfo = v.writetime
-                  v.writetime = this.$moment(dateinfo).tz('Asia/Seoul').format('YYYY년 MM월 DD일 HH시 mm분')
+                  v.writetime = this.$moment(dateinfo).tz('Asia/Seoul').format('YYYY년 M월 D일 H시 m분')
                 })
             })
             .catch(error=>{
