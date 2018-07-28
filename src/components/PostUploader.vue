@@ -101,6 +101,7 @@ export default {
               title: this.title,
               boardid: this.boardId
             }
+            console.log(this.boardId)
             var formData = new FormData()
             formData.append('information', JSON.stringify(json))
             formData.append('userfile', this.file1)
