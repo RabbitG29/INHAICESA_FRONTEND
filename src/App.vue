@@ -136,6 +136,7 @@ export default {
 
 <style>
 @import './assets/noty.css';
+@import '../node_modules/vue-wysiwyg/dist/vueWysiwyg.css';
 #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;

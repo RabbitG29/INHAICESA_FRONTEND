@@ -11,12 +11,14 @@ import autoComplete from './components/auto-complete.vue'
 import moment from 'moment-timezone'
 import vuejsmodal from 'vue-js-modal'
 import common from './common'
+import wysiwyg from 'vue-wysiwyg'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.$config = config
 Vue.use(vuejsmodal)
 Vue.use(vueNotice)
+Vue.use(wysiwyg, {})
 
 Vue.mixin(common)
 Vue.prototype.$moment = moment

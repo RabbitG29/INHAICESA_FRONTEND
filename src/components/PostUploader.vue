@@ -18,7 +18,7 @@
             <input v-model="title" class="form-control" id="exampleFormControlInput1" placeholder="title">
           </div>
           <div class="form-group">
-            <textarea v-model="content" class="form-control" id="exampleFormControlTextarea1" placeholder="content" rows="3"></textarea>
+            <wysiwyg v-model="content"/>
           </div>
         </form>
       </div>

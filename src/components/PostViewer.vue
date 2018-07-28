@@ -17,7 +17,10 @@
       </div>
       <div class="card-body">
     <!--    <h5 class="card-title">Special title treatment</h5> -->
-        <p class="card-text">{{content}}</p>
+        <div class="card-text">
+          <div v-html="content"></div>
+          
+          </div>
         <div>
           <a v-if="filename" :href="path">첨부파일 다운로드 ({{filename}})</a>
         </div>
