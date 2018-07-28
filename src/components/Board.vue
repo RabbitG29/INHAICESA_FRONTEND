@@ -1,8 +1,9 @@
 <template>
 <div class="board-box container">
+  <div v-show="isLogged">
   <button type="button" class="btn btn-outline-secondary"
   style="float:right" @click="createLog()">등록</button>
-
+  </div>
     <!-- print meeting log list -->
     <table class="table table-striped">
       <thead>
