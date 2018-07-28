@@ -24,7 +24,6 @@
                                     <th class="text-center">학점</th>
                                     <th class="text-center">타입</th>
                                     <th class="text-center">교수</th>
-                                    <th class="text-center">비고</th>
                                     <th class="text-center">
                                         <div id="isEs">
                                             필수
@@ -33,6 +32,7 @@
                                             </span>
                                         </div>
                                         </th>
+                                    <th class="text-center">비고</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -164,6 +164,23 @@
                                 <label>전공선택</label>
                             </div>
                         </div>
+                        <div class="row form-group">
+                            <div class="col-sm-2">
+                                <b>학과</b>
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="radio" value="" v-model="dept">
+                                <label>모두</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="radio" value="1185283" v-model="dept">
+                                <label>정보통신공학과</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="radio" value="1184217" v-model="dept">
+                                <label>컴퓨터공학과</label>
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <div class="col-sm-2"></div>
                             <div class="col-sm-6">
@@ -280,6 +297,7 @@ export default {
             credit: '',
             textFilter: '', 
             lazyFilter: '',
+            dept: '',
             mode: 'index',
             category: '',
             selectedData: [],
@@ -308,6 +326,9 @@ export default {
                     return
                 }
                 if(v.credit != (this.credit || v.credit)){
+                    return
+                }
+                if(v.dept != (this.dept || v.dept)){
                     return
                 }
                 if(this.textFilter){
