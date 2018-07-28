@@ -7,6 +7,7 @@
                     <span v-else>
                     <a href="" @click="logOut"> 로그아웃 </a>
                     <router-link to="MyPage"> 마이페이지 </router-link>
+                    <router-link to="Admin" v-if="getAuthLevel >= 5"> 관리 </router-link>
                   </span>
                 </div>
             </div>

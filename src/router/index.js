@@ -14,6 +14,7 @@ import Curriculum from '@/components/Curriculum'
 import TimeTable from '@/components/TimeTable'
 import SaIntro from '@/components/SaIntro'
 import RentalLog from '@/components/RentalLog'
+import Admin from '@/components/Admin'
 Vue.use(Router)
 
 export default new Router({
@@ -87,6 +88,11 @@ export default new Router({
       path: '/rentallog',
       name: 'RentalLog',
       component: RentalLog
+    },
+    {
+      path: '/admin',
+      name: 'Admin',
+      component: Admin
     }
   ]
 })
