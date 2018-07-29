@@ -1,7 +1,7 @@
 <template>
 <div class="board-box">
   <h3>
-    {{['','FAQ','건의게시판','학칙','회의록','결산내역', '공지사항'][Number(boardId)]}}
+    {{boardName[Number(boardId)]}}
   </h3>
   <div v-show="isLogged" class="row form-group">
     <div class="col-sm-10"></div>

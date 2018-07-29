@@ -16,6 +16,11 @@ export default {
             return this.$store.getters.getName
         }
     },
+    data (){
+        return {
+            boardName: ['','FAQ','건의게시판','학칙','회의록','결산내역', '공지사항']
+        }
+    },
     methods: {
         
     }

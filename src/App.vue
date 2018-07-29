@@ -3,6 +3,7 @@
         <div id="header">
             <div id="login-box">
                 <div id="login-menu">
+                    <div class="fb-like" data-href="https://www.facebook.com/inhaicesa/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
                     <router-link v-if="!isLogged" to="Login"> 로그인 </router-link>
                     <span v-else>
                     <a href="" @click="logOut"> 로그아웃 </a>
@@ -215,6 +216,11 @@ export default {
     height: 100px;
 }
 
+.fb-like {
+    position: absolute;
+    top: 3px;
+    left: 5px;
+}
 #navigation,
 #navigation ul,
 #navigation ul li,
