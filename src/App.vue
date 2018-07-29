@@ -17,7 +17,7 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                             <div id="navigation">
-                                  <router-link to="/"><img src="./components/home.png" width="70%" hspace=30/></router-link>
+                                  <router-link to="/"><img src="./components/images/home.png" width="70%" hspace=30/></router-link>
                             </div>
                         </div>
                         <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
