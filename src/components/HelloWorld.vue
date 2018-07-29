@@ -1,9 +1,12 @@
 <template>
-  <div class="hello container" align="center">
-    <br>
-    <h1>정통 학생회에 오신 것을 환영합니다</h1>
-    <br>
+  <div  align="center">
     <div id="carousel-box" class="carousel slide" data-ride="carousel" >
+      <div id="carousel-overlay">
+        <div id="carousel-overlay-blur"></div>
+        <div id="carousel-overlay-text">
+          정통 학생회에 오신 것을 환영합니다
+        </div>
+      </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
           <img class="d-block w-100" src="./images/OT1.jpg" alt="First slide" >
@@ -24,12 +27,12 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
-    <div class="form-group row">
+    <div class="form-group row container">
       <div class="col-sm-1"></div>
       <div class="col-sm-3">
         <div class="card">
           <div class="card-header">
-            최근 게시글들
+            <b>📜 최근 게시글 </b>
           </div>
           <div class="card-body">
             <router-link  v-for="(post, index) in recentPosts" :key="index" tag="div" :to="'/postviewer?id='+post.id" class="form-group">
@@ -41,7 +44,7 @@
       <div class="col-sm-3">
         <div class="card">
           <div class="card-header">
-            최근 댓글들
+            <b>📃 최근 댓글 </b>
           </div>
           <div class="card-body">
             <router-link tag="div" class="form-group" v-for="(comment, index) in recentComments" :key="index" :to="'/postviewer?id='+comment.postId">
@@ -100,9 +103,38 @@ a {
     vertical-align: middle;
 }
 #carousel-box {
-
-  width: 800px;
-  margin: 30px;
+  width: 100%;
+  margin-bottom: 30px;
+  border-radius: 10px;
   height: auto;
+}
+#carousel-overlay {
+  position: absolute;
+  top: 30%;
+  width: 100%;
+  z-index: 100;
+  transition-duration: 0.5s;
+}
+#carousel-overlay:hover {
+  opacity: 0.5;
+  transition-duration: 0.5s;
+}
+#carousel-overlay-blur {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  
+}
+#carousel-overlay-text{
+  position: relative;
+  padding: 13px;
+  z-index: 102;
+  color: white;
+  font-size: 35px;
+  text-shadow: #42b983;
 }
 </style>

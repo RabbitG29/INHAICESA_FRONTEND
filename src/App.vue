@@ -99,17 +99,16 @@
                 </div>
             </div>
         </div>
-        <hr>
         <router-view/>
 
         <div id="footer">
             <small>(22212) 인천광역시 미추홀구 인하로 100 인하대학교 하이테크센터 고층부 지하1층</small>
             <br>
-            <small>ⓒcopyright 2018 developed by 권동현, 장수빈, 전수현, 최유진, 최진우 All Rights Reserved</small>
+            <small>ⓒ Copyright 2018 developed by 권동현, 장수빈, 전수현, 최유진, 최진우 All Rights Reserved</small>
             <br>
             <small>18대 정보통신공학과 학생회 생생정보통신</small>
             <br>
-            <small>Tel) 학생회장 권동현 : 010-2958-8370 학생부회장 박윤수 : 010-5004-4314</small>
+            <small> ☎ 학생회장 권동현: 010-2958-8370 학생부회장 박윤수: 010-5004-4314</small>
         </div>
     </div>
 </template>
