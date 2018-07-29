@@ -2,7 +2,7 @@
   <div class="container">
     <br>
     <h1>정보통신공학과 학생회 조직도</h1>
-    <img src="./Organ.jpg" alt="이미지를 찾을 수 없습니다" title="조직도" width="50%" >
+    <img src="./images/Organ.jpg" alt="이미지를 찾을 수 없습니다" title="조직도" width="50%" >
     <h2 align='left'>부서별 담당 역할</h2>
     <ul align='left'>
       <li>회장, 부회장 : 학생회를 대표하고, 학생회의 대내외적 활동 및 홍보를 주관하고 책임지고 최종 결정한다.</li>

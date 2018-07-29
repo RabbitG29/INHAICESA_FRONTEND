@@ -4,7 +4,7 @@
     <h1>정보통신공학과 학생회</h1>
     <br>
     <ul>
-      <img src="./ICESA.jpg" alt="이미지를 찾을 수 없습니다" title="학생회 간부" width="30%" align='left' hspace=30>
+      <img src="./images/ICESA.jpg" alt="이미지를 찾을 수 없습니다" title="학생회 간부" width="30%" align='left' hspace=30>
       <h2>정보통신공학과 학생회는...</h2>
       <br>
       <th>학생회는 정보통신공학과 학생들을 대표하여,
