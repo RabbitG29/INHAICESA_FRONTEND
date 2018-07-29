@@ -42,10 +42,11 @@
                                     <td>{{item.grade}}</td>
                                     <td>{{item.credit}}</td>
                                     <td>
-                                        <span v-if="item.category == '전공필수'" class="badge badge-primary">{{item.category}}</span>
-                                        <span v-if="item.category == '전공선택'" class="badge badge-success">{{item.category}}</span>
-                                        <span v-if="item.category == '교양필수'" class="badge badge-info">{{item.category}}</span>
-                                        <span v-if="item.category == '교양선택'" class="badge badge-secondary">{{item.category}}</span>
+                                        <span v-if="item.category == '전공필수'" class="badge badge-primary">전필</span>
+                                        <span v-if="item.category == '전공선택'" class="badge badge-success">전선</span>
+                                        <span v-if="item.category == '교양필수'" class="badge badge-info">교필</span>
+                                        <span v-if="item.category == '교양선택'" class="badge badge-secondary">교선</span>
+                                        <span v-if="item.category == '핵심교양'" class="badge badge-warning">핵교</span>
                                     </td>
 
                                     <td>
@@ -143,25 +144,30 @@
                             <div class="col-sm-2">
                                 <b>종류</b>
                             </div>
-                            <div class="col-sm-2">
-                                <input type="radio" value="" v-model="category">
-                                <label>모두</label>
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-1">
+                                <input type="radio" value="" v-model="category" id="badge-all">
+                                <span class="badge badge-pill badge-light">모두</span>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-1">
                                 <input type="radio" value="교양선택" v-model="category">
-                                <label>교양선택</label>
+                                <span class="badge badge-pill badge-secondary" >교선</span>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-1">
                                 <input type="radio" value="교양필수" v-model="category">
-                                <label>교양필수</label>
+                                <span class="badge badge-pill badge-info" >교필</span>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-1">
                                 <input type="radio" value="전공필수" v-model="category">
-                                <label>전공필수</label>
+                                <span class="badge badge-pill badge-primary" >전필</span>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-1">
                                 <input type="radio" value="전공선택" v-model="category">
-                                <label>전공선택</label>
+                                <span class="badge badge-pill badge-success" >전선</span>
+                            </div>  
+                            <div class="col-sm-1">
+                                <input type="radio" value="핵심교양" v-model="category">
+                                <span class="badge badge-pill badge-warning" >핵교</span>
                             </div>
                         </div>
                         <div class="row form-group">
@@ -216,6 +222,7 @@
                                         <span v-if="item.category == '전공선택'" class="badge badge-success">{{item.category}}</span>
                                         <span v-if="item.category == '교양필수'" class="badge badge-info">{{item.category}}</span>
                                         <span v-if="item.category == '교양선택'" class="badge badge-secondary">{{item.category}}</span>
+                                        <span v-if="item.category == '핵심교양'" class="badge badge-warning">{{item.category}}</span>
                                     </td>
                                     <td>{{item.bigo}}</td>
                                     <td>
@@ -392,6 +399,14 @@ export default {
                 if(r.data.status == 'success'){
                     var result = r.data.data
                     // 학년별로 과목 정렬
+                    for(let i=0;i<result.length;i++){
+                        console.log(result[i])
+                        if(result[i].bigo){
+                            if(result[i].bigo.indexOf('핵')!=-1){
+                                result[i].category = '핵심교양'
+                            }
+                        }
+                    }
                     this.subData = result
                 }
             })
@@ -461,6 +476,7 @@ export default {
 #isEs-tooltip {
     position: absolute;
     padding: 5px;
+    width: 100px;
     background-color: black;
     color: white;
     z-index: 10;
