@@ -1,5 +1,8 @@
 <template>
     <div id="app">
+        <div id="sidebar-toggle" @click="sidebar = !sidebar">
+            {{sidebar?'🙉':'🙈'}}
+        </div>
         <div id="header">
             <div id="login-box">
                 <div id="login-menu">
@@ -15,15 +18,15 @@
             <div class="header">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class=" col-sm-4 col-xs-4 container">
                             <div id="navigation">
                                   <router-link to="/"><img src="./components/images/home.png" width="70%" hspace=30/></router-link>
                             </div>
                         </div>
-                        <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
+                        <div id="nav-menu" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="navigation">
                                 <div id="navigation">
-                                    <ul>
+                                    <ul class="container">
                                         <li class="active">
                                             <router-link to="/"> 홈 </router-link>
                                         </li>
@@ -99,6 +102,23 @@
                 </div>
             </div>
         </div>
+        <div id="sidebar" v-show="sidebar">
+            <div class="container">
+            </div>
+            <router-link to="/"> 홈 </router-link>
+            <router-link to="SaIntro"> 학생회 소개 </router-link>
+            <router-link :to="{ name: 'Organ'}"> 학생회 조직도 </router-link>
+            <router-link :to="{ name: 'Board', query: { boardId: 3 } }"> 학칙 </router-link>
+            <router-link to="Curriculum">교육과정</router-link>
+            <router-link to="Completion">이수체계도</router-link>
+            <router-link :to="{ name: 'Board', query: { boardId: 6 } }"> 공지사항 </router-link>
+            <router-link :to="{ name: 'Board', query: { boardId: 1 } }"> FAQ </router-link>
+            <router-link :to="{ name: 'Board', query: { boardId: 2 } }"> 건의게시판 </router-link>
+            <router-link :to="{ name: 'Rental'}"> 대여장부 </router-link>
+            <router-link :to="{ name: 'TimeTable'}">시간표</router-link>
+            <router-link :to="{ name: 'Board', query: { boardId: 4 } }"> 회의록 </router-link>
+            <router-link :to="{ name: 'Board', query: { boardId: 5 } }"> 결산내역 </router-link>
+        </div>
         <router-view/>
 
         <div id="footer">
@@ -127,9 +147,19 @@ export default {
             return this.$store.getters.getToken
         }
     },
+    watch: {
+        $route: function() {
+            this.sidebar = false;
+        }
+    },
     methods: {
         logOut: function() {
             this.$store.commit('logOut')
+        }
+    },
+    data(){
+        return {
+            sidebar: false
         }
     }
 }
@@ -152,6 +182,50 @@ export default {
 </style>
 
 <style scoped>
+@media (min-width: 999px){
+    #nav-menu {
+        display: inline-block;
+    }
+    #sidebar-toggle {
+        display: none;
+    }
+}
+
+@media (max-width: 1000px){
+    #nav-menu {
+        display: none;
+    }
+    #sidebar-toggle {
+        display: block;
+    }
+}
+#sidebar {
+    position: fixed;
+    width: 140px;
+    z-index: 9998;
+    height: 100%;
+    left: 0;
+    top: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 30px;
+    background-color: white;
+}
+
+#sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    left: 50px;
+
+    font-size: 28px;
+    z-index: 9999;
+}
+
+#sidebar a {
+    display: block;
+    padding: 5px;
+    color: black;
+}
 #login-box {
     height: 30px;
     background-color: #0eb769;
@@ -184,30 +258,6 @@ export default {
     background: white;
 }
 
-.dde {
-    position: absolute;
-    background: white;
-}
-
-.dde a {
-    display: none;
-}
-
-.ddm:hover .dde a {
-    position: relative;
-    display: block;
-    z-index: 10;
-}
-
-.dde:hover a {
-    display: lightgrey;
-}
-
-.ddm {
-    display: inline-block;
-}
-
-#menu {}
 
 #footer {
     background: rgb(220, 220, 220);
@@ -256,7 +306,7 @@ export default {
 }
 
 #navigation>ul>li {
-    float: left;
+    display: inline-block;
 }
 
 #navigation.align-center>ul {
