@@ -13,6 +13,7 @@ import vuejsmodal from 'vue-js-modal'
 import common from './common'
 import wysiwyg from 'vue-wysiwyg'
 import VueProgressBar from 'vue-progressbar'
+import VueSocketio from 'vue-socket.io'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
@@ -20,6 +21,7 @@ Vue.prototype.$config = config
 Vue.use(vuejsmodal)
 Vue.use(vueNotice)
 Vue.use(wysiwyg, {})
+Vue.use(VueSocketio, config.targetURL)
 
 const options = {
   color: '#bffaf3',

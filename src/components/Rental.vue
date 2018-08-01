@@ -137,9 +137,21 @@ TODO:
 2. 연체료 계산하기
 
 */
-
 export default {
     name : "Rental",
+    sockets: {
+        connect: function(){
+            console.log('socket connected')
+        },
+        rental: function(){
+            console.log('hello')
+            this.$notice({
+                type: 'success',
+                text: '새로고침 되었습니다.'
+            })
+            this.getData()
+        }
+    },
     data(){
         return {
             payload: '',

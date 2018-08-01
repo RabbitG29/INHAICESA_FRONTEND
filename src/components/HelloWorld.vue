@@ -2,10 +2,45 @@
   <div  align="center">
     <div id="carousel-box" class="carousel slide" data-ride="carousel" >
       <div id="carousel-overlay">
-        <div id="carousel-overlay-blur"></div>
+        <div id="carousel-overlay-blur">
+          
+        </div>
         <div id="carousel-overlay-text">
           정통 학생회에 오신 것을 환영합니다
         </div>
+      </div>
+      <div id="carousel-overlay-box">
+        <div class="form-group row container">
+          <div class="col-lg-1"></div>
+          <div class="col-lg-3" id="content-box">
+            <div class="card">
+              <div class="card-header">
+                <b>📜 최근 게시글 </b>
+              </div>
+              <div class="card-body">
+                <router-link  v-for="(post, index) in recentPosts" :key="index" tag="div" :to="'/postviewer?id='+post.id" class="form-group">
+                  <b>{{boardName[post.boardID]?'['+boardName[post.boardID]+']':''}}</b>{{post.title}}
+                </router-link>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="card"  id="content-box">
+              <div class="card-header">
+                <b>📃 최근 댓글 </b>
+              </div>
+              <div class="card-body">
+                <router-link tag="div" class="form-group" v-for="(comment, index) in recentComments" :key="index" :to="'/postviewer?id='+comment.postId">
+                  {{comment.content}}
+                </router-link>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3"  id="content-box">
+            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Finhaicesa%2F&tabs=timeline&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="500" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+          </div>
+        </div>
+
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
@@ -26,36 +61,6 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
-    </div>
-    <div class="form-group row container">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-3">
-        <div class="card">
-          <div class="card-header">
-            <b>📜 최근 게시글 </b>
-          </div>
-          <div class="card-body">
-            <router-link  v-for="(post, index) in recentPosts" :key="index" tag="div" :to="'/postviewer?id='+post.id" class="form-group">
-              <b>{{boardName[post.boardID]?'['+boardName[post.boardID]+']':''}}</b>{{post.title}}
-            </router-link>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <div class="card">
-          <div class="card-header">
-            <b>📃 최근 댓글 </b>
-          </div>
-          <div class="card-body">
-            <router-link tag="div" class="form-group" v-for="(comment, index) in recentComments" :key="index" :to="'/postviewer?id='+comment.postId">
-              {{comment.content}}
-            </router-link>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Finhaicesa%2F&tabs=timeline&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="500" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
-      </div>
     </div>
   </div>
 </template>
@@ -85,6 +90,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#content-box {
+  margin: 5px;  
+}
 h1, h2 {
   font-weight: normal;
 }
@@ -110,13 +118,28 @@ a {
 }
 #carousel-overlay {
   position: absolute;
-  top: 30%;
+  top: 10%;
   width: 100%;
   z-index: 100;
   transition-duration: 0.5s;
 }
 #carousel-overlay:hover {
   opacity: 0.5;
+  transition-duration: 0.5s;
+}
+
+#carousel-overlay-box {
+  position: absolute;
+  top: 40%;
+  left: 15%;
+  right: 15%;
+  z-index: 1;
+  opacity: 1;
+  transition-duration: 0.5s;
+}
+#carousel-overlay-box:hover {
+  z-index: 2;
+  opacity: 1;
   transition-duration: 0.5s;
 }
 #carousel-overlay-blur {
