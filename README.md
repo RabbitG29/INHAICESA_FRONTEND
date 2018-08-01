@@ -1,6 +1,10 @@
-# frontend
+# 생생정보통신
 
-> A Vue.js project
+> 인하대학교 정보통신공학과 학생회 홈페이지 입니다.
+
+## Contribution
+
+> 홈페이지에 관한 의견제시나 Pull Request는 언제나 환영입니다.
 
 ## Build Setup
 
