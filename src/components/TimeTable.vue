@@ -245,49 +245,54 @@
                         <button class="btn btn-secondary" @click="mode = 'index'">뒤로가기</button>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-sm-2">
-                        <button class="btn btn-primary" @click="setTablePos(tablePos-1)" :disabled="tablePos == 0"> ← </button>
-                    </div>
-                    <div class="col-sm-3"></div>
-                    <div class="col-sm-2">
-                        {{timetable.count}}개 중 {{tablePos+1}}번째
-                    </div>
-                    <div class="col-sm-3"></div>
-                    <div class="col-sm-2">
-                        <button class="btn btn-primary" @click="setTablePos(tablePos+1)" :disabled="tablePos == timetable.count-1"> → </button>
-                    </div>
-                </div>
-                <div>
+                <div v-if="tablePos!=0">
                     <div class="form-group row">
-                        <div class="col-sm-2"></div>
-                        <div class="col-sm-2">월</div>
-                        <div class="col-sm-2">화</div>
-                        <div class="col-sm-2">수</div>
-                        <div class="col-sm-2">목</div>
-                        <div class="col-sm-2">금</div>
-                    </div>
-                    <div v-for="(row, index) in timetable.result[tablePos]" :key="index" class="form-group row">
                         <div class="col-sm-2">
-                            {{index+1}}교시
+                            <button class="btn btn-primary" @click="setTablePos(tablePos-1)" :disabled="tablePos == 0"> ← </button>
                         </div>
-                        <div v-for="(item, index2) in row" :key="index2" class="col-sm-2">
-                            <div v-if="item!='0'" class="class-cell">
-                                {{item.subject}}({{item.name_pf||''}})
-                                <div class="cell-tooltip">
-                                    학수번호:{{item.sno}}
-                                    <br>
-                                    {{["월","화","수","목","금"][index2]}}요일 {{index+1}}교시
-                                    <br>
-                                    교수:{{item.name_pf}}
-                                    <br>
-                                    장소:{{item.place}}
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-2">
+                            {{timetable.count}}개 중 {{tablePos+1}}번째
+                        </div>
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary" @click="setTablePos(tablePos+1)" :disabled="tablePos == timetable.count-1"> → </button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group row">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-2">월</div>
+                            <div class="col-sm-2">화</div>
+                            <div class="col-sm-2">수</div>
+                            <div class="col-sm-2">목</div>
+                            <div class="col-sm-2">금</div>
+                        </div>
+                        <div v-for="(row, index) in timetable.result[tablePos]" :key="index" class="form-group row">
+                            <div class="col-sm-2">
+                                {{index+1}}교시
+                            </div>
+                            <div v-for="(item, index2) in row" :key="index2" class="col-sm-2">
+                                <div v-if="item!='0'" class="class-cell">
+                                    {{item.subject}}({{item.name_pf||''}})
+                                    <div class="cell-tooltip">
+                                        학수번호:{{item.sno}}
+                                        <br>
+                                        {{["월","화","수","목","금"][index2]}}요일 {{index+1}}교시
+                                        <br>
+                                        교수:{{item.name_pf}}
+                                        <br>
+                                        장소:{{item.place}}
+                                    </div>
+                                </div>
+                                <div v-else>
                                 </div>
                             </div>
-                            <div v-else>
-                            </div>
                         </div>
                     </div>
+                </div>
+                <div v-else>
+                    조건에 부합하는 시간표가 없습니다.
                 </div>
         </div>
     </div>
