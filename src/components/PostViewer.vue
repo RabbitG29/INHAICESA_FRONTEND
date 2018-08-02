@@ -6,7 +6,7 @@
           <h4 font-style="bold" v-html="title"></h4>
           <h5>{{writer}}</h5>
           <h5><small class="text-right">{{writetime}}</small></h5>
-          
+
           <div id="edit-box">
             <div v-show="isLogged && getId == writerID">
               <button type="button" class="btn btn-light btn-sm" @click.prevent="editLog">수정</button>
@@ -19,7 +19,7 @@
     <!--    <h5 class="card-title">Special title treatment</h5> -->
         <div class="card-text">
           <div v-html="content"></div>
-          
+
           </div>
         <div>
           <a v-if="filename" :href="path">첨부파일 다운로드 ({{filename}})</a>
@@ -29,11 +29,19 @@
     </div>
     <br>
 
+        <!--댓글작성-->
+    <div v-if="isLogged" class="list-group col-sm-8">
+      <div id="comment-post-box">
+      <textarea v-model="comment" class="form-control"  placeholder="차카게 삽시다." rows="3"></textarea>
+      <button type="button" class="btn btn-primary" @click.prevent="commentEroll">댓글작성</button>
+      </div>
+    </div>
+
     <!--댓글 보이기-->
-    <div class="row">
+    <div class="row" id="comment">
       <div class="col-sm-2"></div>
-      <div class="list-group col-sm-8"> 
-        <div class="text-left card comment-card" 
+      <div class="list-group col-sm-8">
+        <div class="text-left card comment-card"
         v-for="(item, index) in list" :key="index+item.mode">
             <div class="card-body" id="comment-box">
               <h5 class="comment-writer">{{item.writerName}}
@@ -51,26 +59,36 @@
 
                   <button type="button" class="btn btn-light btn-sm" @click.prevent="deleteComment(item.commentId)">삭제</button>
                 </div>
-            
+
               </div>
             </div>
         </div>
       </div>
       <div class="col-sm-2"></div>
       <div class="col-sm-2"></div>
-        
-      <div v-if="isLogged" class="list-group col-sm-8">
-        <div id="comment-post-box">
-        <textarea v-model="comment" class="form-control"  placeholder="차카게 삽시다." rows="3"></textarea>
-        <button type="button" class="btn btn-primary" @click.prevent="commentEroll">댓글작성</button>
-        </div>
+    </div>
+    <div id="moblie-comment">
+      <div class="text-left card"  v-for="(item, index) in list" :key="index+item.mode">
+          <div class="card-body">
+            <h6 v-if="item.mode == 'view'">{{item.content}}</h6>
+            <h6 v-else><textarea class="form-control" v-model="item.content"></textarea></h6>
+            <h7>{{item.writerName}}
+              <sub>{{item.edittime?item.edittime:item.createtime}}</sub>
+            </h7>
+            <div class="row" id="edit-box">
+              <div v-show="getId==item.writerID">
+                <button v-if="item.mode == 'edit'" type="button" class="btn btn-light btn-sm" @click="changeCommentMode(index)">취소</button>
+                <button v-if="item.mode == 'view'" type="button" class="btn btn-light btn-sm" @click="changeCommentMode(index)">수정</button>
+                <button v-else type="button" class="btn btn-light btn-sm" @click.prevent="editComment(item)">확인</button>
+
+                <button type="button" class="btn btn-light btn-sm" @click.prevent="deleteComment(item.commentId)">삭제</button>
+              </div>
+
+            </div>
+          </div>
       </div>
     </div>
-    
-    <!--댓글작성-->
-    
     <br>
-
   </div>
 </template>
 <script>
@@ -257,7 +275,7 @@ export default {
 }
 </script>
 <style scoped>
-  
+
 #comment-box #edit-box {
   position: absolute;
   bottom: 15px;
@@ -301,4 +319,30 @@ export default {
 .list-group .card {
   margin: 5px;
 }
+.btn-primary{
+  background-color: #4CAF50;
+  border: none;
+}
+
+#comment {
+  width: 100%;
+}
+@media (min-width: 999px){
+    #comment {
+        display: inline-block;
+    }
+    #mobile-comment{
+        display: none;
+    }
+}
+
+@media (max-width: 1000px){
+    #comment {
+        display: none;
+    }
+    #moblie-comment{
+        display: inline-block;
+    }
+}
+
 </style>
