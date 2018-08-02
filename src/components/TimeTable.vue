@@ -56,7 +56,7 @@
                                             <option v-for="(c, index) in item.pfs" :key="index2*1000+index" :value="c">{{c}}</option>
                                         </select>
                                     </td>
-                                    <td>    
+                                    <td>
                                         <div class="form-check">
                                             <input type="checkbox" class="form-check-input" v-model="selectedData[index2].isEssential">
                                         </div>
@@ -164,7 +164,7 @@
                             <div class="col-sm-1">
                                 <input type="radio" value="전공선택" v-model="category">
                                 <span class="badge badge-pill badge-success" >전선</span>
-                            </div>  
+                            </div>
                             <div class="col-sm-1">
                                 <input type="radio" value="핵심교양" v-model="category">
                                 <span class="badge badge-pill badge-warning" >핵교</span>
@@ -186,6 +186,10 @@
                                 <input type="radio" value="1184217" v-model="dept">
                                 <label>컴퓨터공학과</label>
                             </div>
+                            <div class="col-sm-2">
+                                <input type="radio" value="1" v-model="dept">
+                                <label>일반교양</label>
+                            </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-2"></div>
@@ -195,7 +199,7 @@
                             <div class="col-sm-4">
                                 <button class="btn btn-primary" @click="textFilter == ''">초기화</button>
                             </div>
-                            
+
 
                         </div>
                     </div>
@@ -304,10 +308,10 @@ export default {
     data (){
         return {
             subData: [], // 과목 목록
-            result: [], // 학년 별 과목 
+            result: [], // 학년 별 과목
             subject: '',
             credit: '',
-            textFilter: '', 
+            textFilter: '',
             lazyFilter: '',
             dept: '',
             mode: 'index',
@@ -364,7 +368,7 @@ export default {
         // [추가] 버튼을 눌렀을때
         selectSubject: function(item){
             var pfSet = new Set() // 교수 이름 리스트
-            
+
             this.result.forEach(v=>{
                 if(v.subject == item.subject){ // 같은 과목이면
                     pfSet.add(v.name_pf) // 교수 이름을 Set에 넣어준다.
@@ -372,7 +376,7 @@ export default {
             })
             item.pfs = [...pfSet]; // Set -> Array 형변환 [ES6 문법]
 
-            item.selectedPf = '' // 선택된 교수 
+            item.selectedPf = '' // 선택된 교수
             item.isEssential = true
             this.selectedData.push(item)
 
@@ -490,5 +494,19 @@ export default {
 }
 #isEs:hover #isEs-tooltip {
     display: block;
+}
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@font-face {
+  font-family: 'NanumGothic' ;
+  src:url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot);
+  src:url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'),
+      url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff2) format('woff2'),
+      url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff) format('woff'),
+      url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.ttf) format('truetype');
+  font-weight : normal;
+  font-style : normal;
+}
+h2, p, h3, div {
+ font-family: 'NanumGothic';
 }
 </style>

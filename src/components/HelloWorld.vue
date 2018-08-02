@@ -3,7 +3,7 @@
     <div id="carousel-box" class="carousel slide" data-ride="carousel" >
       <div id="carousel-overlay">
         <div id="carousel-overlay-blur">
-          
+
         </div>
         <div id="carousel-overlay-text">
           정통 학생회에 오신 것을 환영합니다
@@ -36,7 +36,7 @@
           <div class="card-header">
             <b>📜 최근 게시글 </b>
           </div>
-          <div class="card-body">
+          <div class="card-body" style="cursor: pointer">
             <router-link  v-for="(post, index) in recentPosts" :key="index" tag="div" :to="'/postviewer?id='+post.id" class="form-group">
               <b>{{boardName[post.boardID]?'['+boardName[post.boardID]+']':''}}</b>{{post.title}}
             </router-link>
@@ -48,7 +48,7 @@
           <div class="card-header">
             <b>📃 최근 댓글 </b>
           </div>
-          <div class="card-body">
+          <div class="card-body" style="cursor: pointer">
             <router-link tag="div" class="form-group" v-for="(comment, index) in recentComments" :key="index" :to="'/postviewer?id='+comment.postId">
               {{comment.content}}
             </router-link>
@@ -89,7 +89,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #content-box {
-  margin: 5px;  
+  margin: 5px;
 }
 h1, h2 {
   font-weight: normal;
@@ -148,7 +148,7 @@ a {
   right: 0;
   bottom: 0;
   background: rgba(0,0,0,0.5);
-  
+
 }
 #carousel-overlay-text{
   position: relative;
@@ -157,5 +157,19 @@ a {
   color: white;
   font-size: 35px;
   text-shadow: #42b983;
+}
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@font-face {
+  font-family: 'NanumGothic' ;
+  src:url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot);
+  src:url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'),
+      url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff2) format('woff2'),
+      url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff) format('woff'),
+      url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.ttf) format('truetype');
+  font-weight : normal;
+  font-style : normal;
+}
+div {
+ font-family: 'NanumGothic';
 }
 </style>
