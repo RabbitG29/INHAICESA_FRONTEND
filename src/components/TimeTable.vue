@@ -12,7 +12,7 @@
                         <div class="col-sm-9"></div>
                         <div class="col-sm-3">
                             <button class="btn btn-secondary" @click="selectedData = []">초기화</button>
-                            <button class="btn btn-primary" @click.prevent="getTimeTable()">제출</button>
+                            <button class="btn btn-primary" @click.prevent="getTimeTable()" :disabled="selectedData.length==0">제출</button>
                         </div>
                     </div>
                     <div class="form-group">
@@ -71,7 +71,7 @@
 
                                 </tr>
                                 <tr v-if="selectedData.length == 0">
-                                    <td colspan="8">선택된 사이트가 없습니다.</td>
+                                    <td colspan="8">선택된 사이트가 없습니다. <br> 하단에서 과목을 선택해주세요.</td>
                                 </tr>
                                 <tr v-else>
                                     <td></td>
