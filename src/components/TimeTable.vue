@@ -439,7 +439,13 @@ export default {
 
             this.$http.get(url)
             .then(r=>{
-                if(r.data.status == 'success'){
+                if(r.data.data.count==0) {
+                  this.$notice({
+                      type: 'alert',
+                      text: '가능한 시간표가 없습니다'
+                  })
+                }
+                else if(r.data.status == 'success'){
                     console.log(r.data.data)
                     this.timetable = r.data.data
                     this.tablePos = 0
