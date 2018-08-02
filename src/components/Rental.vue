@@ -222,7 +222,7 @@ export default {
                 return_sa: this.getId
             }
             console.log(json)
-            this.$http.put(this.$config.targetURL+'/info/rent/log/destroy', json)
+            this.$http.put(this.$config.targetURL+'/info/rent/product/destroy', json)
             .then(r=>{
                 if(r.data.status == 'success'){
                     this.getData()
