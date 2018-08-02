@@ -9,8 +9,8 @@
 
           <div id="edit-box">
             <div v-show="isLogged && getId == writerID">
-              <button type="button" class="btn btn-light btn-sm" @click.prevent="editLog">수정</button>
-              <button type="button" class="btn btn-light btn-sm" @click.prevent="deleteLog">삭제</button>
+              <button type="button" class="btn btn-light btn-sm" style="cursor: pointer" @click.prevent="editLog">수정</button>
+              <button type="button" class="btn btn-light btn-sm" style="cursor: pointer" @click.prevent="deleteLog">삭제</button>
             </div>
           </div>
         </div>
@@ -24,7 +24,7 @@
         <div>
           <a v-if="filename" :href="path">첨부파일 다운로드 ({{filename}})</a>
         </div>
-        <a href="#" class="btn btn-secondary" style="float:right" @click="goBack">뒤로가기</a>
+        <a href="#" class="btn btn-secondary" style="float:right cursor: pointer" @click="goBack">뒤로가기</a>
       </div>
     </div>
     <br>
@@ -33,7 +33,7 @@
     <div v-if="isLogged" class="list-group col-sm-8">
       <div id="comment-post-box">
       <textarea v-model="comment" class="form-control"  placeholder="차카게 삽시다." rows="3"></textarea>
-      <button type="button" class="btn btn-primary" @click.prevent="commentEroll">댓글작성</button>
+      <button type="button" class="btn btn-primary" style="cursor: pointer" @click.prevent="commentEroll">댓글작성</button>
       </div>
     </div>
 
@@ -45,7 +45,7 @@
         v-for="(item, index) in list" :key="index+item.mode">
             <div class="card-body" id="comment-box">
               <h5 class="comment-writer">{{item.writerName}}
-                <sub class="comment-timestamp">{{item.edittime?item.edittime:item.createtime}}</sub>
+                <sub class="comment-timestamp" style="color: #5cb85c">{{item.edittime?item.edittime:item.createtime}}</sub>
               </h5>
               <br>
               <h6 v-if="item.mode == 'view'">{{item.content}}</h6>
@@ -53,11 +53,11 @@
 
               <div class="row" id="edit-box">
                 <div v-show="getId==item.writerID">
-                  <button v-if="item.mode == 'edit'" type="button" class="btn btn-light btn-sm" @click="changeCommentMode(index)">취소</button>
-                  <button v-if="item.mode == 'view'" type="button" class="btn btn-light btn-sm" @click="changeCommentMode(index)">수정</button>
-                  <button v-else type="button" class="btn btn-light btn-sm" @click.prevent="editComment(item)">확인</button>
+                  <button v-if="item.mode == 'edit'" type="button" class="btn btn-light btn-sm" style="cursor: pointer" @click="changeCommentMode(index)">취소</button>
+                  <button v-if="item.mode == 'view'" type="button" class="btn btn-light btn-sm" style="cursor: pointer" @click="changeCommentMode(index)">수정</button>
+                  <button v-else type="button" class="btn btn-light btn-sm" style="cursor: pointer" @click.prevent="editComment(item)">확인</button>
 
-                  <button type="button" class="btn btn-light btn-sm" @click.prevent="deleteComment(item.commentId)">삭제</button>
+                  <button type="button" class="btn btn-light btn-sm" style="cursor: pointer" @click.prevent="deleteComment(item.commentId)">삭제</button>
                 </div>
 
               </div>
@@ -65,23 +65,22 @@
         </div>
       </div>
       <div class="col-sm-2"></div>
-      <div class="col-sm-2"></div>
     </div>
-    <div id="moblie-comment">
-      <div class="text-left card"  v-for="(item, index) in list" :key="index+item.mode">
+    <div id="mobile-comment">
+      <div class="text-left card comment-card"  v-for="(item, index) in list" :key="index+item.mode">
           <div class="card-body">
             <h6 v-if="item.mode == 'view'">{{item.content}}</h6>
             <h6 v-else><textarea class="form-control" v-model="item.content"></textarea></h6>
-            <h7>{{item.writerName}}
-              <sub>{{item.edittime?item.edittime:item.createtime}}</sub>
-            </h7>
-            <div class="row" id="edit-box">
-              <div v-show="getId==item.writerID">
-                <button v-if="item.mode == 'edit'" type="button" class="btn btn-light btn-sm" @click="changeCommentMode(index)">취소</button>
-                <button v-if="item.mode == 'view'" type="button" class="btn btn-light btn-sm" @click="changeCommentMode(index)">수정</button>
-                <button v-else type="button" class="btn btn-light btn-sm" @click.prevent="editComment(item)">확인</button>
+            <small>{{item.writerName}}
+              <sub style="color: #5cb85c">{{item.edittime?item.edittime:item.createtime}}</sub>
+            </small>
+            <div class="" id="mobile-edit-box">
+              <div v-show="getId==item.writerID" class="">
+                <button v-if="item.mode == 'edit'" type="button" class="btn btn-light btn-sm" style="cursor: pointer" @click="changeCommentMode(index)">취소</button>
+                <button v-if="item.mode == 'view'" type="button" class="btn btn-light btn-sm" style="cursor: pointer" @click="changeCommentMode(index)">수정</button>
+                <button v-else type="button" class="btn btn-light btn-sm" style="cursor: pointer" @click.prevent="editComment(item)">확인</button>
 
-                <button type="button" class="btn btn-light btn-sm" @click.prevent="deleteComment(item.commentId)">삭제</button>
+                <button type="button" class="btn btn-light btn-sm" style="cursor: pointer" @click.prevent="deleteComment(item.commentId)">삭제</button>
               </div>
 
             </div>
@@ -275,7 +274,9 @@ export default {
 }
 </script>
 <style scoped>
-
+#mobile-comment {
+  width: 100%;
+}
 #comment-box #edit-box {
   position: absolute;
   bottom: 15px;
@@ -311,6 +312,12 @@ export default {
   margin-right: 150px;
   margin-top: 80px;
 }
+#mobile-edit-box {
+  position: absolute;
+  bottom: 9px;
+  right: 9px;
+
+}
 #post-box #edit-box {
   position: absolute;
   top: 20px;
@@ -319,12 +326,10 @@ export default {
 .list-group .card {
   margin: 5px;
 }
-.btn-primary{
-  background-color: #4CAF50;
-  border: none;
+.card{
+  margin-bottom:10px;
 }
-
-#comment {
+#comment{
   width: 100%;
 }
 @media (min-width: 999px){
@@ -340,7 +345,7 @@ export default {
     #comment {
         display: none;
     }
-    #moblie-comment{
+    #mobile-comment{
         display: inline-block;
     }
 }
