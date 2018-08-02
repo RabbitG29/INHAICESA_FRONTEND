@@ -28,7 +28,13 @@
                         <input class="form-control" v-model="boardNote">
                     </div>
                     <div class="col-sm-9" v-if="isPage">
-                        <wysiwyg v-model="boardNote"/>
+                        <button @click="isHTML = !isHTML" class="btn btn-secondary">{{isHTML?'이지윅 에디터':'HTML에디터'}}</button>
+                        <div v-if="!isHTML">
+                            <wysiwyg v-model="boardNote"/>
+                        </div>
+                        <div v-if="isHTML">
+                            <textarea v-model="boardNote"/>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row" v-if="!isPage">
@@ -138,6 +144,7 @@ export default {
             writeAuthLevel: '',
             isPage: '',
             isGallery: '',
+            isHTML: false,
             postID: '',
             mode: 'post'
         }
