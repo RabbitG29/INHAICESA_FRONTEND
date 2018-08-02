@@ -166,7 +166,11 @@ export default {
 </script>
 
 <style>
+@import './assets/noty.css';
+@import '../node_modules/vue-wysiwyg/dist/vueWysiwyg.css';
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+
 @font-face {
   font-family: 'NanumGothic' ;
   src:url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot);
@@ -181,8 +185,6 @@ div {
  font-family: 'NanumGothic';
 }
 
-@import './assets/noty.css';
-@import '../node_modules/vue-wysiwyg/dist/vueWysiwyg.css';
 #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -273,9 +275,11 @@ div {
 
 
 #footer {
+    margin-top: 20px;
+    padding: 10px;  
+    position: relative;
     background: rgb(220, 220, 220);
     color: black;
-    height: 100px;
 }
 
 .fb-like {

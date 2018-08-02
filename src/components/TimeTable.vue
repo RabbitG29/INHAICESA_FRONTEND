@@ -249,7 +249,7 @@
                         <button class="btn btn-secondary" @click="mode = 'index'">뒤로가기</button>
                     </div>
                 </div>
-                <div v-if="tablePos!=0">
+                <div v-if="timetable.count!=0">
                     <div class="form-group row">
                         <div class="col-sm-2">
                             <button class="btn btn-primary" @click="setTablePos(tablePos-1)" :disabled="tablePos == 0"> ← </button>

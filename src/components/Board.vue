@@ -2,7 +2,6 @@
 <div>
     <div id="board">
       <div  class="board-box">
-        board
       <h3>
         {{boardName[Number(boardId)]}}
       </h3>
