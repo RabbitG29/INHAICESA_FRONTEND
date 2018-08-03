@@ -124,7 +124,6 @@
             <router-link :to="{ name: 'Board', query: { boardId: 5 } }"> 결산내역 </router-link>
         </div>
         <router-view/>
-
         <div id="footer">
             <small>(22212) 인천광역시 미추홀구 인하로 100 인하대학교 하이테크센터 고층부 지하1층</small>
             <br>
@@ -133,6 +132,9 @@
             <small>18대 정보통신공학과 학생회 생생정보통신</small>
             <br>
             <small> ☎ 학생회장 권동현: 010-2958-8370 학생부회장 박윤수: 010-5004-4314</small>
+            <br>
+            <div id="plusfriend-add-button" data-plusfriend-id="_zIyxld" data-size="small" data-color="yellow" data-shape="rect"></div>
+            <br>
         </div>
     </div>
 </template>
@@ -284,6 +286,11 @@ div {
     position: relative;
     background: rgb(220, 220, 220);
     color: black;
+}
+#plusfriend-add-button {
+  display: inline-block;
+  z-index: 2;
+  position: relative;
 }
 
 .fb-like {
