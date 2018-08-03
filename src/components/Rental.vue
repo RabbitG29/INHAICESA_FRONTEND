@@ -43,7 +43,7 @@
                     </div>
                     <div class="row form-group text-center container" id="phone-tooltip">
                         <div v-if="initPhone == '' && id!=''"> <!-- -->
-                            <small>저장되어 있는 연락처가 없는데 새로 저장할까용?</small>
+                            <small>저장되어 있는 연락처가 없는데 새로 저장할까요??</small>
                             <button class="btn btn-sm btn-primary" @click.prevent="editInfo" >새로 저장</button>
                         </div>
                         <div v-else-if="initPhone != phone">
@@ -62,10 +62,10 @@
                     <hr>
                     <div class="row form-group">
                         <div class="col-sm-4">
-                            <label>지킴이 정보</label>
+                            <label>지킴이 이름</label>
                         </div>
                         <div class="col-sm-8">
-                            <input class="form-control" :value="getName+'('+getId+')'" disabled>
+                            <input class="form-control" v-model="saname">
                         </div>
                     </div>
                     <hr>
@@ -82,7 +82,15 @@
         <div class="modal-container">
             <h3>반납하기</h3>
             <hr>
-            <p>정직하게 삽시다.</p>
+            <div class="row form-group">
+                <div class="col-sm-4">
+                    <label>지킴이 이름</label>
+                </div>
+                <div class="col-sm-8">
+                    <input class="form-control" v-model="returnsaname">
+                </div>
+            </div>
+            <p>물품의 상태를 확인해주세요.</p>
             <div>
                 <button class="btn btn-primary" @click.prevent="returnItem(item)">정상 반납</button>
                 <button class="btn btn-primary" @click.prevent="destroyItem(item)">분실/파손 신고</button>
@@ -219,7 +227,7 @@ export default {
             var json={
                 token: this.getToken,
                 num: item.num,
-                return_sa: this.getId
+                return_sa: this.returnsaname
             }
             console.log(json)
             this.$http.put(this.$config.targetURL+'/info/rent/product/destroy', json)
@@ -247,7 +255,7 @@ export default {
                 token: this.getToken,
                 pro_name: item.pro_name,
                 pro_num: item.pro_num,
-                return_sa: this.getId
+                return_sa: this.returnsaname
             }
             console.log(json)
             this.$http.post(this.$config.targetURL+'/info/rent/log/return', json)
@@ -312,7 +320,7 @@ export default {
                 rent_student: this.name,
                 student_num: this.id,
                 student_phone: this.phone,
-                rent_sa: this.getId
+                rent_sa: this.saname
             }
             console.log(json)
             this.$http.post(this.$config.targetURL+'/info/rent/log/rent', json)
