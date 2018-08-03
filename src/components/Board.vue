@@ -147,6 +147,7 @@ export default {
     #board {
         display: inline-block;
     }
+    #moblie-board{
     #mobile-board{
         display: none;
     }

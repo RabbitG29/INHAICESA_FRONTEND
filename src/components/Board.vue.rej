@@ -1,0 +1,9 @@
+diff a/src/components/Board.vue b/src/components/Board.vue	(rejected hunks)
+@@ -156,7 +156,6 @@
+     #board {
+         display: none;
+     }
+-    #moblie-board{
+     #mobile-board{
+         display: inline-block;
+     }
