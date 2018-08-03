@@ -4,7 +4,6 @@
             <div id="login-box">
                 <div id="login-menu">
                     <div class="fb-like" data-href="https://www.facebook.com/inhaicesa/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
-
                     <a id="sidebar-toggle" @click="sidebar =! sidebar">메뉴</a>
                     <router-link v-if="!isLogged" to="Login"> 로그인 </router-link>
 
