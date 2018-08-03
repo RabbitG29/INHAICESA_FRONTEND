@@ -12,7 +12,7 @@
                         <div class="col-sm-9"></div>
                         <div class="col-sm-3">
                             <button class="btn btn-secondary" @click="selectedData = []">초기화</button>
-                            <button class="btn btn-primary" @click.prevent="getTimeTable()">제출</button>
+                            <button class="btn btn-primary" @click.prevent="getTimeTable()" :disabled="selectedData.length==0">제출</button>
                         </div>
                     </div>
                     <div class="form-group">
@@ -71,7 +71,7 @@
 
                                 </tr>
                                 <tr v-if="selectedData.length == 0">
-                                    <td colspan="8">선택된 사이트가 없습니다.</td>
+                                    <td colspan="8">선택된 사이트가 없습니다. <br> 하단에서 과목을 선택해주세요.</td>
                                 </tr>
                                 <tr v-else>
                                     <td></td>
@@ -249,49 +249,54 @@
                         <button class="btn btn-secondary" @click="mode = 'index'">뒤로가기</button>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-sm-2">
-                        <button class="btn btn-primary" @click="setTablePos(tablePos-1)" :disabled="tablePos == 0"> ← </button>
-                    </div>
-                    <div class="col-sm-3"></div>
-                    <div class="col-sm-2">
-                        {{timetable.count}}개 중 {{tablePos+1}}번째
-                    </div>
-                    <div class="col-sm-3"></div>
-                    <div class="col-sm-2">
-                        <button class="btn btn-primary" @click="setTablePos(tablePos+1)" :disabled="tablePos == timetable.count-1"> → </button>
-                    </div>
-                </div>
-                <div>
+                <div v-if="timetable.count!=0">
                     <div class="form-group row">
-                        <div class="col-sm-2"></div>
-                        <div class="col-sm-2">월</div>
-                        <div class="col-sm-2">화</div>
-                        <div class="col-sm-2">수</div>
-                        <div class="col-sm-2">목</div>
-                        <div class="col-sm-2">금</div>
-                    </div>
-                    <div v-for="(row, index) in timetable.result[tablePos]" :key="index" class="form-group row">
                         <div class="col-sm-2">
-                            {{index+1}}교시
+                            <button class="btn btn-primary" @click="setTablePos(tablePos-1)" :disabled="tablePos == 0"> ← </button>
                         </div>
-                        <div v-for="(item, index2) in row" :key="index2" class="col-sm-2">
-                            <div v-if="item!='0'" class="class-cell">
-                                {{item.subject}}({{item.name_pf||''}})
-                                <div class="cell-tooltip">
-                                    학수번호:{{item.sno}}
-                                    <br>
-                                    {{["월","화","수","목","금"][index2]}}요일 {{index+1}}교시
-                                    <br>
-                                    교수:{{item.name_pf}}
-                                    <br>
-                                    장소:{{item.place}}
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-2">
+                            {{timetable.count}}개 중 {{tablePos+1}}번째
+                        </div>
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary" @click="setTablePos(tablePos+1)" :disabled="tablePos == timetable.count-1"> → </button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group row">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-2">월</div>
+                            <div class="col-sm-2">화</div>
+                            <div class="col-sm-2">수</div>
+                            <div class="col-sm-2">목</div>
+                            <div class="col-sm-2">금</div>
+                        </div>
+                        <div v-for="(row, index) in timetable.result[tablePos]" :key="index" class="form-group row">
+                            <div class="col-sm-2">
+                                {{index+1}}교시
+                            </div>
+                            <div v-for="(item, index2) in row" :key="index2" class="col-sm-2">
+                                <div v-if="item!='0'" class="class-cell">
+                                    {{item.subject}}({{item.name_pf||''}})
+                                    <div class="cell-tooltip">
+                                        학수번호:{{item.sno}}
+                                        <br>
+                                        {{["월","화","수","목","금"][index2]}}요일 {{index+1}}교시
+                                        <br>
+                                        교수:{{item.name_pf}}
+                                        <br>
+                                        장소:{{item.place}}
+                                    </div>
+                                </div>
+                                <div v-else>
                                 </div>
                             </div>
-                            <div v-else>
-                            </div>
                         </div>
                     </div>
+                </div>
+                <div v-else>
+                    조건에 부합하는 시간표가 없습니다.
                 </div>
         </div>
     </div>
@@ -489,5 +494,19 @@ export default {
 }
 #isEs:hover #isEs-tooltip {
     display: block;
+}
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@font-face {
+  font-family: 'NanumGothic' ;
+  src:url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot);
+  src:url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'),
+      url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff2) format('woff2'),
+      url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff) format('woff'),
+      url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.ttf) format('truetype');
+  font-weight : normal;
+  font-style : normal;
+}
+h2, p, h3, div {
+ font-family: 'NanumGothic';
 }
 </style>

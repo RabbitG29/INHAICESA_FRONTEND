@@ -7,7 +7,9 @@ import axios from 'axios'
 import { store } from './store'
 import vueNotice from './vue-notice.js'
 import config from './config/config.json'
+
 import autoComplete from './components/auto-complete.vue'
+import adminRouter from './components/admin-router.vue'
 import moment from 'moment-timezone'
 import vuejsmodal from 'vue-js-modal'
 import common from './common'
@@ -43,6 +45,7 @@ Vue.use(VueProgressBar, options)
 Vue.mixin(common)
 Vue.prototype.$moment = moment
 Vue.component('auto-complete', autoComplete)
+Vue.component('admin-router', adminRouter)
 /* eslint-disable no-new */
 
 new Vue({

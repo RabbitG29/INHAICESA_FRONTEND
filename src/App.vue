@@ -1,17 +1,17 @@
 <template>
     <div id="app">
-        <div id="sidebar-toggle" @click="sidebar = !sidebar">
-            {{sidebar?'🙉':'🙈'}}
-        </div>
         <div id="header">
             <div id="login-box">
                 <div id="login-menu">
                     <div class="fb-like" data-href="https://www.facebook.com/inhaicesa/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+
+                    <a id="sidebar-toggle" @click="sidebar =! sidebar">메뉴</a>
                     <router-link v-if="!isLogged" to="Login"> 로그인 </router-link>
+
                     <span v-else>
-                    <a href="" @click="logOut"> 로그아웃 </a>
-                    <router-link to="MyPage"> 마이페이지 </router-link>
-                    <router-link to="Admin" v-if="getAuthLevel >= 5"> 관리 </router-link>
+                        <a href="" @click="logOut"> 로그아웃 </a>
+                        <router-link to="MyPage"> 마이페이지 </router-link>
+                        <router-link to="Admin" v-if="getAuthLevel >= 5"> 관리 </router-link>
                   </span>
                 </div>
             </div>
@@ -51,6 +51,7 @@
                                                 <li>
                                                     <router-link to="Completion">이수체계도</router-link>
                                                 </li>
+                                                <li><a href="https://ice.inha.ac.kr/?page_id=71" target="_blank"> 교수님소개 </a></li>
                                             </ul>
                                         </li>
                                         <li class="has-sub"><a href="#">게시판</a>
@@ -74,6 +75,9 @@
                                             </li>
                                             <li>
                                                 <router-link :to="{ name: 'TimeTable'}">시간표</router-link>
+                                            </li>
+                                            <li>
+                                                <router-link :to="{ name: 'Calendar'}">월중행사</router-link>
                                             </li>
                                             <li>
                                                 <router-link :to="{ name: 'Board', query: { boardId: 4 } }"> 회의록 </router-link>
@@ -168,6 +172,23 @@ export default {
 <style>
 @import './assets/noty.css';
 @import '../node_modules/vue-wysiwyg/dist/vueWysiwyg.css';
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+
+@font-face {
+  font-family: 'NanumGothic' ;
+  src:url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot);
+  src:url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'),
+      url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff2) format('woff2'),
+      url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff) format('woff'),
+      url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.ttf) format('truetype');
+  font-weight : normal;
+  font-style : normal;
+}
+div {
+ font-family: 'NanumGothic';
+}
+
 #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -196,7 +217,7 @@ export default {
         display: none;
     }
     #sidebar-toggle {
-        display: block;
+        display: inline-block;
     }
 }
 #sidebar {
@@ -213,12 +234,7 @@ export default {
 }
 
 #sidebar-toggle {
-    position: fixed;
-    top: 20px;
-    left: 50px;
-
-    font-size: 28px;
-    z-index: 9999;
+    position: inline-block;
 }
 
 #sidebar a {
@@ -227,6 +243,9 @@ export default {
     color: black;
 }
 #login-box {
+    position: fixed;
+    z-index: 10000;
+    width: 100%;
     height: 30px;
     background-color: #0eb769;
 }
@@ -260,9 +279,11 @@ export default {
 
 
 #footer {
+    margin-top: 20px;
+    padding: 10px;
+    position: relative;
     background: rgb(220, 220, 220);
     color: black;
-    height: 100px;
 }
 
 .fb-like {
@@ -673,7 +694,7 @@ export default {
     background-color: #fff;
     z-index: 99;
     position: relative;
-    padding-top: 20px;
+    padding-top: 40px;
     padding-bottom: 20px;
 }
 </style>
