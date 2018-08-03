@@ -17,6 +17,7 @@ import RentalLog from '@/components/RentalLog'
 import Admin from '@/components/Admin'
 import AdminBoard from '@/components/Admin-Board'
 import AdminTimetable from '@/components/Admin-Timetable'
+import Calendar from '@/components/Calendar'
 Vue.use(Router)
 
 export default new Router({
@@ -105,6 +106,11 @@ export default new Router({
       path: '/admintimetable',
       name: 'Admin-Timetable',
       component: AdminTimetable
+    },
+    {
+      path: '/calendar',
+      name: 'Calendar',
+      component: Calendar
     }
   ]
 })

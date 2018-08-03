@@ -77,6 +77,9 @@
                                                 <router-link :to="{ name: 'TimeTable'}">시간표</router-link>
                                             </li>
                                             <li>
+                                                <router-link :to="{ name: 'Calendar'}">월중행사</router-link>
+                                            </li>
+                                            <li>
                                                 <router-link :to="{ name: 'Board', query: { boardId: 4 } }"> 회의록 </router-link>
                                             </li>
                                             <li>
