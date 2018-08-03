@@ -2,6 +2,7 @@
 <div>
     <div id="board">
       <div  class="board-box">
+        board
       <h3>
         {{boardName[Number(boardId)]}}
       </h3>
@@ -159,18 +160,5 @@ export default {
         display: inline-block;
     }
 }
-@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
-@font-face {
-  font-family: 'NanumGothic' ;
-  src:url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot);
-  src:url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'),
-      url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff2) format('woff2'),
-      url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff) format('woff'),
-      url(//fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.ttf) format('truetype');
-  font-weight : normal;
-  font-style : normal;
-}
-div, thead, tbody {
- font-family: 'NanumGothic';
-}
+
 </style>
