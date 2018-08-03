@@ -51,6 +51,7 @@
                                                 <li>
                                                     <router-link to="Completion">이수체계도</router-link>
                                                 </li>
+                                                <li><a href="https://ice.inha.ac.kr/?page_id=71" target="_blank"> 교수님소개 </a></li>
                                             </ul>
                                         </li>
                                         <li class="has-sub"><a href="#">게시판</a>
@@ -276,7 +277,7 @@ div {
 
 #footer {
     margin-top: 20px;
-    padding: 10px;  
+    padding: 10px;
     position: relative;
     background: rgb(220, 220, 220);
     color: black;
